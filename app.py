@@ -73,18 +73,77 @@ def persist_participant(field,key):st.session_state.draft['participant'][field]=
 def persist_field(field,key):st.session_state.draft[field]=st.session_state[key]
 def persist_rating(code,key):st.session_state.draft['ratings'][code]=st.session_state[key]
 def persist_priority(index,key):st.session_state.draft['priorities'][index]=st.session_state[key]
-def move(stage):st.session_state.stage=stage
+def move(stage):
+    st.session_state.stage=stage
+    st.session_state.pop('restore_notice',None)
 
 def fresh_response():
     st.session_state.draft=new_draft();st.session_state.stage=0;st.session_state.pending={};st.session_state.map_epoch={}
     st.session_state.pop('submitted_receipt',None)
+    st.session_state.pop('prepared_draft',None)
+    st.session_state.pop('restore_notice',None)
+    st.session_state.pop('restore_error',None)
+    st.session_state.map_revision=st.session_state.get('map_revision',0)+1
     for key in list(st.session_state):
         if key.startswith('w_'):del st.session_state[key]
 
+def current_draft_snapshot():
+    snapshot=copy.deepcopy(st.session_state.draft)
+    snapshot['resume_stage']=st.session_state.stage
+    return json.dumps(snapshot,ensure_ascii=False,indent=2)
+
+
+def prepare_draft_download():
+    # Callback runs after pending input values reach session state, before rendering.
+    d=st.session_state.draft
+    for q in QUESTIONS:
+        for field,prefix in [('text','w_answer_'),('change','w_change_')]:
+            key=prefix+str(q['id'])
+            if key in st.session_state:d['answers'][str(q['id'])][field]=st.session_state[key]
+    for field in d['participant']:
+        key='w_'+field
+        if key in st.session_state:d['participant'][field]=st.session_state[key]
+    for code in SOPS:
+        key='w_rating_'+code
+        if key in st.session_state:d['ratings'][code]=st.session_state[key]
+    for i in range(3):
+        key='w_priority_'+str(i)
+        if key in st.session_state:d['priorities'][i]=st.session_state[key]
+    for field in ['consent','closing','feedback_channel']:
+        key='w_'+field
+        if key in st.session_state:d[field]=st.session_state[key]
+    st.session_state.prepared_draft=current_draft_snapshot()
+
+
+def restore_draft_bytes(data):
+    try:
+        if len(data)>2_000_000:raise ValueError('The draft file is too large.')
+        raw=json.loads(data)
+        restored=validate_draft(raw)
+        filled=[int(n) for n,a in restored['answers'].items() if a['text'].strip() or a['change'].strip() or a['locations']]
+        locations=sum(len(a['locations']) for a in restored['answers'].values())
+        stage=raw.get('resume_stage')
+        if type(stage) is not int or not 0<=stage<=13:
+            stage=min(filled) if filled else 0
+        if not restored['consent']:stage=0
+        fresh_response()
+        st.session_state.draft=restored
+        st.session_state.stage=stage
+        st.session_state.restore_notice={'answered':len(filled),'locations':locations}
+    except (ValueError,TypeError,UnicodeDecodeError) as exc:
+        st.session_state.restore_error='Could not restore draft: '+str(exc)
+
+
 def draft_download():
-    st.download_button('Download my draft',json.dumps(st.session_state.draft,ensure_ascii=False,indent=2),
-                       file_name='Armoede_survey_draft.json',mime='application/json',key=f'draft_dl_{st.session_state.stage}',use_container_width=True)
-    st.caption('Your answers stay in this session while the page remains open. Download a draft before closing or refreshing, then restore it on the welcome screen.')
+    st.button('Prepare draft download',on_click=prepare_draft_download,key=f'prepare_draft_{st.session_state.stage}',use_container_width=True)
+    prepared=st.session_state.get('prepared_draft')
+    if prepared:
+        if prepared==current_draft_snapshot():
+            st.caption('Your current answers and locations are ready to download.')
+            st.download_button('Download my draft',prepared,file_name='Armoede_survey_draft.json',mime='application/json',key=f'draft_dl_{st.session_state.stage}',on_click='ignore',use_container_width=True)
+        else:
+            st.caption('You have made changes. Select Prepare draft download again to include them.')
+    st.caption('Select Prepare draft download, then Download my draft before closing or refreshing. Restore the downloaded JSON on the welcome screen to continue later.')
 
 
 def input_value(key,value):
@@ -108,12 +167,9 @@ def welcome():
     st.caption('Do not enter household names, identification numbers, personal health details or private contact numbers. Pins identify places or concerns, not named vulnerable households. Candidate safe places still require verification.')
     with st.expander('Continue from a saved draft'):
         uploaded=st.file_uploader('Choose your Armoede survey draft JSON',type=['json'],key='draft_upload')
-        if st.button('Restore draft',disabled=uploaded is None,use_container_width=True):
-            try:
-                if len(uploaded.getvalue())>2_000_000:raise ValueError('The draft file is too large.')
-                restored=validate_draft(json.loads(uploaded.getvalue()))
-                fresh_response();st.session_state.draft=restored;st.success('Draft restored.');st.rerun()
-            except (ValueError,UnicodeDecodeError) as exc:st.error('Could not restore draft: '+str(exc))
+        st.button('Restore draft',disabled=uploaded is None,use_container_width=True,
+                  on_click=restore_draft_bytes,args=(uploaded.getvalue() if uploaded is not None else b'',))
+        if st.session_state.get('restore_error'):st.error(st.session_state.restore_error)
     participant=st.session_state.draft['participant']
     roles=['Community member','Disaster management warden','Traditional leader','Local municipality','District disaster management','NGO or community organisation','Faith based organisation','Youth representative','Other stakeholder','Mixed focus group']
     modes=['Individual participant','Facilitated focus group']
@@ -149,7 +205,7 @@ def question_page(qid):
         st.caption('Tap or click inside the green boundary, describe the place, then attach it. You may add several places or leave the map blank.')
         pending=st.session_state.pending.get(str(qid));epoch=st.session_state.map_epoch.get(str(qid),0)
         m=survey_map(answer['locations'],pending)
-        result=st_folium(m,height=360,use_container_width=True,key=f'location_map_{qid}_{epoch}',returned_objects=['last_clicked'])
+        result=st_folium(m,height=360,use_container_width=True,key=f'location_map_{st.session_state.get("map_revision",0)}_{qid}_{epoch}',returned_objects=['last_clicked'])
         click=(result or {}).get('last_clicked')
         if click:
             st.session_state.pending[str(qid)]=click;pending=click
@@ -312,6 +368,13 @@ elif password_gate('survey'):
     else:
         if not st.session_state.draft['consent']:st.session_state.stage=0
         stage=st.session_state.stage
+        notice=st.session_state.get('restore_notice')
+        if notice:
+            st.success(f"Draft restored: {notice['answered']} questions with saved input and {notice['locations']} attached locations.")
+            if not notice['answered']:
+                st.warning('This file contains no saved question answers or map locations. Participant details have been restored; check that you selected the intended draft file.')
+            if stage==0 and notice['answered']:
+                st.info('Your answers are restored. Confirm consent if needed, then select Start the questions to view them.')
         if stage==0:welcome()
         elif stage<=12:question_page(stage)
         else:review()
