@@ -1,0 +1,70 @@
+"""Send complete Armoede submissions to the organiser through Gmail SMTP."""
+import json
+import smtplib
+import ssl
+from email.message import EmailMessage
+from survey_core import QUESTIONS,SOPS,csv_bytes,geojson_export
+
+RECIPIENT='dingaanm@gmail.com'
+
+
+def build_message(payload,sender):
+    msg=EmailMessage()
+    msg['From']=sender;msg['To']=RECIPIENT
+    msg['Subject']=f"Armoede survey response {payload['response_id'][:8]}"
+    msg['Message-ID']=f"<armoede-{payload['response_id']}@gmail.com>"
+    participant=payload['participant']
+    lines=['ARMOEDE COMMUNITY SOP SURVEY',f"Response reference: {payload['response_id']}",f"Submitted UTC: {payload.get('submitted_at','')}",'']
+    for name,value in participant.items():lines.append(f"{name.replace('_',' ').title()}: {value or 'Not specified'}")
+    lines.extend(['','ALL QUESTIONS AND ANSWERS'])
+    for q in QUESTIONS:
+        a=payload['answers'][str(q['id'])]
+        lines.extend(['',f"QUESTION {q['id']}: {q['question']}",f"SOP reference: {q['sop_reference']}",'Answer:',a['text'] or 'No answer recorded','Suggested change:',a['change'] or 'No change recorded','Selected places:'])
+        for loc in a['locations']:
+            lines.extend([f"- {loc['label']} | {loc['category']} | latitude {loc['lat']:.6f}, longitude {loc['lon']:.6f}",f"  https://www.openstreetmap.org/?mlat={loc['lat']:.6f}&mlon={loc['lon']:.6f}#map=18/{loc['lat']:.6f}/{loc['lon']:.6f}"])
+        if not a['locations']:lines.append('No location attached')
+    lines.extend(['','SOP FIT RATINGS'])
+    for code,label in SOPS.items():lines.append(f"{code} {label}: {payload['ratings'][code]}")
+    lines.extend(['','TOP THREE PRIORITY CHANGES'])
+    lines.extend(f"{i+1}. {v or 'Not recorded'}" for i,v in enumerate(payload['priorities']))
+    lines.extend(['','OTHER CONCERNS',payload['closing'] or 'None recorded','','FEEDBACK CHANNEL',payload['feedback_channel'] or 'Not recorded','','Locations are participant identified and require verification.'])
+    msg.set_content('\n'.join(lines))
+    prefix=f"Armoede_{payload['response_id'][:8]}"
+    msg.add_attachment(csv_bytes([payload]),maintype='text',subtype='csv',filename=prefix+'_answers.csv')
+    msg.add_attachment(json.dumps(geojson_export([payload]),ensure_ascii=False,indent=2).encode(),maintype='application',subtype='geo+json',filename=prefix+'_locations.geojson')
+    return msg
+
+
+def deliver_response(store,response_id,sender,app_password,allow_uncertain=False):
+    """Atomic claim prevents concurrent/double click sends; SMTP cannot promise inbox delivery."""
+    if not sender or not app_password:return 'not_configured'
+    payload=store.get(response_id)
+    if not payload:raise ValueError('Response is not stored')
+    store.queue_email(response_id)
+    if not store.claim_email(response_id,allow_uncertain):
+        return store.email_statuses().get(response_id,{}).get('status','pending')
+    sending=False
+    accepted=False
+    smtp=None
+    try:
+        message=build_message(payload,sender)
+        smtp=smtplib.SMTP('smtp.gmail.com',587,timeout=20)
+        smtp.ehlo();smtp.starttls(context=ssl.create_default_context());smtp.ehlo()
+        smtp.login(sender,''.join(app_password.split()))
+        sending=True
+        refused=smtp.send_message(message,from_addr=sender,to_addrs=[RECIPIENT])
+        if refused:
+            store.finish_email(response_id,'failed','Gmail refused the recipient. Check sender and recipient settings.');return 'failed'
+        accepted=True
+        store.finish_email(response_id,'sent','Gmail accepted the email; check inbox or spam.');return 'sent'
+    except Exception:
+        # Never surface raw SMTP/credential/database errors. A send timeout may occur after acceptance.
+        status='uncertain' if sending or accepted else 'failed'
+        detail='Delivery confirmation is uncertain. Check Gmail before retrying; retry may duplicate the email.' if status=='uncertain' else 'Email connection or authentication failed. Check the Google App Password and hosting network access.'
+        try:store.finish_email(response_id,status,detail)
+        except Exception:pass  # sending stays visible for manual recovery after database failure
+        return status
+    finally:
+        if smtp is not None:
+            try:smtp.close()
+            except Exception:pass
