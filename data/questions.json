@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "question": "What situations make people feel unsafe in this community, and which three need the most attention?",
+    "probes": "Where do they occur, at what time of year, and who is most affected? Ask participants to mark places on a simple local map. After their own answers, check the six draft hazard groups: flooding and severe weather; fire and electrical incidents; water interruption, drought and heat; medical and public health; community safety; and mining or environmental concerns. The DRM Plan prioritises water supply interruptions, flooding and runoff, household fires, unsafe wiring, and drought. Are these still the priorities? What is missing?",
+    "sop_reference": "D2.2; D2.2.1–D2.2.2; D2.3.6(a–f)."
+  },
+  {
+    "id": 2,
+    "question": "Think of a recent emergency or serious disruption here. What happened from the first sign of trouble until people received help?",
+    "probes": "Use the 13 November 2025 wind and rainstorm if participants remember it, including Road One and New Stands. Who noticed first? Who was contacted? What helped, what delayed help, and who was left out? Were there effects on income, schooling, access, water or household wellbeing? Where would the proposed steps have helped or failed? Do not ask for names of affected households.",
+    "sop_reference": "Common operating sequence; D2.2–D2.4."
+  },
+  {
+    "id": 3,
+    "question": "When something goes wrong here, whom do people actually contact, and how should the wardens, traditional leaders, Trust and municipality work together?",
+    "probes": "Are these people trusted and reachable after hours? Who takes over if the first person is absent? Where do responsibilities overlap or fall between institutions? Ask NGOs and faith groups what support they can realistically offer; record proposed roles separately from confirmed mandates. The Charter, Plan and SOP use different names for coordinating structures: which structure exists, who represents each street, and which name should the final documents use?",
+    "sop_reference": "D2.1; D2.1.1–D2.1.2; Annex B."
+  },
+  {
+    "id": 4,
+    "question": "If a risk is reported but nobody responds, what should happen next and how should the person who reported it hear back?",
+    "probes": "Use a real example if possible. Which alternative contact or channel works? The draft calls for immediate emergency notification and an alternative channel for urgent matters if there is no acknowledgement within 30 minutes, sooner if conditions worsen. What would prevent that working? Who follows up and tells residents the outcome?",
+    "sop_reference": "D2.1 escalation standards; D2.1.3–D2.1.4."
+  },
+  {
+    "id": 5,
+    "question": "How do people here receive important warnings, and what would make a warning trustworthy and useful enough to act on?",
+    "probes": "Which languages and words are understood? Who lacks a phone, airtime, electricity, signal or ability to read a message? Which two channels could reach them, including at night? The storm report recorded unstable mobile networks and no two-way radios. What has changed since then? Who confirms that the message reached the last households? How are rumours corrected without delaying an urgent official warning?",
+    "sop_reference": "D2.2 early warning; D2.2.5."
+  },
+  {
+    "id": 6,
+    "question": "Who would find it hardest to receive a warning, move to safety or obtain help, and what would they need?",
+    "probes": "Consider older people, children, people with disabilities, people living alone, carers and people who need continuing medication. Are some areas or groups overlooked? Who can help, with whose agreement? How can support information be recorded privately without publicly identifying households? Invite missing groups’ views through a separate accessible follow up.",
+    "sop_reference": "D2.2.6; D2.3.4; D2.4.1; safeguards."
+  },
+  {
+    "id": 7,
+    "question": "In this situation, what would you do in the first ten minutes, and where would the draft procedure be difficult to follow?",
+    "probes": "Who makes the first call and gives the location? What if calls fail, wardens are away or personally affected, or internal approval is slow? Which backup arrangement is feasible? Can a sudden storm be handled safely even when no warning has reached people? Who communicates with residents? What safe support can wardens provide with their present training, and what must be left to specialist responders?",
+    "sop_reference": "D2.3 activation and immediate sequence; D2.3.1–D2.3.3; D2.3.6."
+  },
+  {
+    "id": 8,
+    "question": "If people needed to leave their homes, where could they safely go and how would everyone get there?",
+    "probes": "Which routes become unusable, especially at night? Is there an alternative? Who lacks transport or needs assistance? What would make people reluctant to leave, such as security of homes or possessions? What shelter, lighting, toilets, water, accessibility and capacity would be needed? How would learners be kept away from flooded crossings and reunited with caregivers? Are the reported erosion gorge and damaged access points still dangerous?",
+    "sop_reference": "D2.2.6; D2.3.4; Annex B."
+  },
+  {
+    "id": 9,
+    "question": "While waiting for responders, what support could the community safely provide, and what would responders need to know when they arrive?",
+    "probes": "The storm report noted response on foot without vehicles or radios. What transport, protective equipment and communication backup exist today? Who owns them and can release them after hours? How do wardens check in and stay safe? Who gives one clear handover covering location, access, hazards, people needing help, actions taken and outstanding needs? What happens if help is delayed?",
+    "sop_reference": "D2.2.4; D2.3.2–D2.3.5; Annex B."
+  },
+  {
+    "id": 10,
+    "question": "After an incident, what help would households need first, and how should assistance be allocated fairly?",
+    "probes": "What needs are often missed? How would needs be checked without excessive paperwork or exposing private details? Could people without documents, transport or connections be excluded? Who can receive, store and account for supplies? How could someone complain safely without losing assistance? The 2025 report states that six households met municipal relief criteria. What happened to other affected households? What referral or approved Trust support route should the SOP record without promising automatic assistance?",
+    "sop_reference": "D2.4.1–D2.4.2; relief accountability standards."
+  },
+  {
+    "id": 11,
+    "question": "When homes, services or livelihoods are restored, what should change so that the same harm does not happen again?",
+    "probes": "What should be repaired differently or in a safer place? Which water, drainage, access, communication or livelihood improvements matter most? Who should be involved in decisions? What can residents do, and what needs municipal, Trust, technical or other external support? What has changed in storm readiness, drainage, roofing safety and anchoring of poles since the incident? Technical repairs need competent assessment. How should water supply reliability, food production and livestock livelihoods be protected? Who would maintain improvements?",
+    "sop_reference": "D2.4.3; Build Back Better screening."
+  },
+  {
+    "id": 12,
+    "question": "Looking at this short procedure or action card, how would you use it here, and what would stop it working?",
+    "probes": "Ask one participant to explain its first action in their own words. Which words, steps or forms are unclear? Which local language, picture, flowchart or short card would help? What training, phone access, equipment, time or funding is missing? Who could maintain contacts, review procedures and collect feedback? If the companion Toolkit is unavailable, record tool usability as not tested.",
+    "sop_reference": "All four SOPs; D2.1.4; D2.2.4; D2.4.4–D2.4.5."
+  }
+]
