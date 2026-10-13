@@ -119,3 +119,12 @@ def test_all_questions_and_authenticated_dashboard(tmp_path,monkeypatch):
         next(b for b in at.button if b.label=='Lock dashboard').click().run()
         assert not at.exception
         assert any(b.label=='Unlock dashboard' for b in at.button)
+
+
+def test_postgres_initialization_enables_rls_before_rows_are_used():
+    class RecordedConnection:
+        def __init__(self):self.statements=[]
+        def execute(self,statement):self.statements.append(statement)
+    conn=RecordedConnection()
+    Store(database_url='postgresql://example')._init(conn)
+    assert conn.statements[-2:]==['ALTER TABLE armoede_survey_responses ENABLE ROW LEVEL SECURITY','ALTER TABLE armoede_email_notifications ENABLE ROW LEVEL SECURITY']
