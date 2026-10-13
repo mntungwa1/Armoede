@@ -11,7 +11,7 @@ A Streamlit stakeholder engagement app for Armoede / Ga-Sekhaolelo. The 12 quest
 - Enter decimal coordinates if map tiles do not load.
 - Rate the four SOPs, identify three priority changes and capture a differing view.
 - Download a draft, restore it later, and export their answers as CSV or locations as GeoJSON.
-- Submit once a storage backend is configured. Repeated submissions of the same response ID do not create duplicates or overwrite the first submission.
+- Submit once a database or Gmail delivery is configured. Repeated submissions of the same response ID do not create duplicates or overwrite the first submission.
 
 The facilitator dashboard is password protected, shows submitted responses only, and offers question maps, role/session filters, SOP fit ratings, CSV exports and full JSON backups. It is locked when no administrator password is configured.
 
@@ -65,13 +65,13 @@ Local submissions are saved under `responses/armoede.sqlite3`. Back up this fold
 1. Create a GitHub repository for this app.
 2. Upload all project files, preserving the `data` and `.streamlit` directories. Do not upload a real `secrets.toml` or the `responses` directory.
 3. In Streamlit Community Cloud, create an app using that repository, branch and `app.py` as the main file. Choose Python 3.12.
-4. Configure Secrets with a strong `ADMIN_PASSWORD` (or `ADMIN_PASSWORD_SHA256`), and an external PostgreSQL `DATABASE_URL`. Leave `REQUIRE_DURABLE_STORAGE = true`.
+4. Configure Secrets with a strong `ADMIN_PASSWORD` (or `ADMIN_PASSWORD_SHA256`), plus `EMAIL_ADDRESS` and `EMAIL_PASSWORD` for Gmail notifications. For a persistent dashboard, also configure an external PostgreSQL `DATABASE_URL`. Leave `REQUIRE_DURABLE_STORAGE = true`.
 5. Optionally configure a separate `SURVEY_PASSWORD` (or its hash) and share it through the organiser's chosen channel.
 6. Deploy and open the generated Streamlit URL on a desktop and smartphone. Submit a test response, restart the app, and verify the response remains available in the facilitator dashboard. Remove test records using your database administration process if needed.
 
-**Without a configured external database, the default app allows draft completion and downloads but disables server submission.** This prevents a cloud deployment from silently collecting survey records on ephemeral local storage. SQLite is for local workshops or hosting with an explicitly persistent disk; do not enable it on Community Cloud for real collection.
+**Without either an external database or Gmail credentials, the default app allows draft completion and downloads but disables submission.** Gmail credentials allow email collection without PostgreSQL. In that mode, emails are the retained record and dashboard copies use temporary local storage: they may disappear after a Cloud restart or redeployment. Configure PostgreSQL to retain the dashboard as well as the emailed answers. SQLite alone is for laptop workshops or hosting with an explicitly persistent disk.
 
-The database account needs access to a dedicated database/schema and permission to create and insert/select from `armoede_survey_responses`. This is the only table used by this app. The app does not publish database credentials to participant browsers. Restrict the database account to the required permissions, retain backups, and use TLS as required by your database provider. Set the connection string only in Secrets or an environment variable. Do not paste credentials into chat or commit them to GitHub.
+The database account needs access to a dedicated database/schema and permission to create and insert/select from `armoede_survey_responses`. Email tracking also uses `armoede_email_notifications`; the database account needs create, insert, select and update permissions for this table. The app does not publish database credentials to participant browsers. Restrict the database account to the required permissions, retain backups, and use TLS as required by your database provider. Set the connection string only in Secrets or an environment variable. Do not paste credentials into chat or commit them to GitHub.
 
 The PostgreSQL path is implemented but was not integration-tested against a live server because no database connection was supplied. Complete the live submission-and-restart check before using it for engagement.
 
@@ -88,7 +88,8 @@ All mapped locations are participant proposals, not verified safe assembly point
 - `app.py`: participant flow, map interactions and protected dashboard.
 - `survey_core.py`: schema, boundary checks, draft validation and exports.
 - `map_view.py`: Armoede boundary and participant markers.
-- `storage.py`: parameterised SQLite/PostgreSQL storage.
+- `storage.py`: parameterised SQLite/PostgreSQL response storage and email delivery status.
+- `notifications.py`: Gmail sending with full answers, locations, CSV and GeoJSON attachments.
 - `data/questions.json`: the 12 questions, probes and SOP references.
 - `data/armoede_boundary.geojson`: supplied community polygon.
 - `.streamlit/config.toml`: colours, readable text and upload limit.
@@ -114,3 +115,27 @@ Reference documentation:
 - https://github.com/randyzwitch/streamlit-folium
 
 The reference KZN survey was visible at its password screen, with Survey and Admin Dashboard navigation. Its protected questionnaire was not inspected, and no source code was copied.
+
+## Gmail notifications and facilitator dashboard
+
+Add the following to Streamlit Secrets, using your own passwords privately:
+
+```toml
+SURVEY_PASSWORD = "your participant password"
+ADMIN_PASSWORD = "your facilitator password"
+EMAIL_ADDRESS = "dingaanm@gmail.com"
+EMAIL_PASSWORD = "your Google App Password"
+REQUIRE_DURABLE_STORAGE = true
+```
+
+Keep an existing DATABASE_URL if configured. The Google App Password is separate from the survey and facilitator passwords and your normal Google password. It needs 2-Step Verification on the sending Google account. Spaces in Google's displayed app password are removed before SMTP authentication. No credentials are included in this repository.
+
+Each submitted response is emailed to **dingaanm@gmail.com** with all 12 question headings and answers, suggested changes, location coordinates and map links, SOP ratings, priorities and closing comments. CSV and GeoJSON exports are attached. The facilitator dashboard remains available, with email statuses and a button to send pending or failed notifications. Responses submitted before Gmail was configured can be sent from that button if they still exist in the database.
+
+Repeated submit clicks do not normally resend a sent notification. Delivery is marked sent when Gmail accepts the message, which does not prove inbox delivery. If a send times out after transmission may have begun, its status is uncertain and automatic retries stop. The organiser checks Gmail before using the explicit manual retry, which can create a duplicate. If Gmail fails before sending, answers remain available locally or in PostgreSQL and a safe retry is offered.
+
+When Gmail is the only configured destination, download a backup if sending fails: temporary Cloud records are not a durable outbox. Configure PostgreSQL for durable pending messages and dashboard records. The app does not run a background retry worker; the facilitator retries pending notifications while the dashboard is open. Gmail SMTP access must be allowed by the hosting environment.
+
+After saving Secrets and deploying the update, submit a short test answer through the survey, check Inbox and Spam, and verify the response and email status in the facilitator dashboard. Real Gmail sending has not been tested by the developer because credentials stay private in the deployed app; automated tests simulate SMTP success, authentication failures, ambiguous delivery, duplicate clicks and email-only submission.
+
+Google guidance: https://support.google.com/mail/answer/185833
