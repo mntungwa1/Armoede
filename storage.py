@@ -20,6 +20,10 @@ class Store:
     def _init(self,conn):
         conn.execute('CREATE TABLE IF NOT EXISTS armoede_survey_responses (response_id TEXT PRIMARY KEY, submitted_at TEXT NOT NULL, payload TEXT NOT NULL)')
         conn.execute("CREATE TABLE IF NOT EXISTS armoede_email_notifications (response_id TEXT PRIMARY KEY, status TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0, updated_at TEXT NOT NULL, detail TEXT NOT NULL DEFAULT '')")
+        if self.url:
+            # The server connects as table owner; public API roles receive no row access.
+            conn.execute('ALTER TABLE armoede_survey_responses ENABLE ROW LEVEL SECURITY')
+            conn.execute('ALTER TABLE armoede_email_notifications ENABLE ROW LEVEL SECURITY')
     def save(self,payload):
         conn=self._connection()
         try:
