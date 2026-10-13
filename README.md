@@ -17,7 +17,7 @@ The facilitator dashboard is password protected, shows submitted responses only,
 
 ## Smartphones
 
-On narrow screens, the answer boxes appear above the map. All navigation buttons are large, and there is one question per screen. Tap the map, then use **Attach selected place to this answer**; tapping alone does not save a pin. Scroll below the map to see attached places and navigation. Download a draft before closing or refreshing the page. To continue later, use **Continue from a saved draft** on the welcome screen and select the downloaded JSON file.
+On narrow screens, the answer boxes appear above the map. All navigation buttons are large, and there is one question per screen. Tap the map, then use **Attach selected place to this answer**; tapping alone does not save a pin. Scroll below the map to see attached places and navigation. Before closing or refreshing, select **Prepare draft download**, then **Download my draft**. Preparation captures the latest input before generating the file. To continue later, use **Continue from a saved draft** on the welcome screen, select the downloaded JSON file and click **Restore draft**. The app shows how many questions and locations were restored and opens the saved question. Older drafts without saved navigation metadata open the first question containing input. Empty or invalid drafts are explicitly reported.
 
 This is an online web app, not an offline installable app. Background map tiles require internet access. Session memory is not a durable draft backup. Test the published deployment on the phones and networks participants will use before the engagement. Do not use browser refresh as navigation.
 
@@ -95,6 +95,7 @@ All mapped locations are participant proposals, not verified safe assembly point
 - `.streamlit/config.toml`: colours, readable text and upload limit.
 - `.streamlit/secrets.example.toml`: configuration example containing no active credentials.
 - `tests/test_survey.py`: map, navigation, storage, consent and export checks.
+- `tests/test_restore.py`: restore flow, draft confirmation, stale widget replacement and download preparation.
 
 The field names and SOP references make CSV outputs usable as evidence for the SOP comment and response matrix. They do not automatically disposition comments or approve revisions.
 
