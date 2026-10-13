@@ -14,6 +14,7 @@ from survey_core import (QUESTIONS,SOPS,RATINGS,new_draft,validate_draft,inside_
                          add_location,submission_errors,csv_bytes,geojson_export,answer_rows)
 from storage import Store
 from map_view import survey_map
+from notifications import deliver_response,RECIPIENT
 
 st.set_page_config(page_title='Armoede Community SOP Survey',page_icon='📍',layout='wide',initial_sidebar_state='collapsed')
 st.markdown('''<style>
@@ -33,6 +34,9 @@ def setting(key,default=''):
 def is_true(value):return str(value).lower() in ('true','1','yes')
 store=Store(str(setting('DATABASE_URL')),str(setting('SQLITE_PATH',str(Path(__file__).parent/'responses/armoede.sqlite3'))))
 require_durable=is_true(setting('REQUIRE_DURABLE_STORAGE',True))
+email_sender=str(setting('EMAIL_ADDRESS',RECIPIENT)).strip()
+email_password=str(setting('EMAIL_PASSWORD')).strip()
+email_ready=bool(email_sender and email_password)
 if 'draft' not in st.session_state:st.session_state.draft=new_draft()
 if 'stage' not in st.session_state:st.session_state.stage=0
 if 'pending' not in st.session_state:st.session_state.pending={}
@@ -100,6 +104,7 @@ def welcome():
     st.subheader('Tell us what would work in Armoede')
     st.write('Help improve the disaster procedures for Armoede / Ga-Sekhaolelo. Share your experiences, describe what needs to change, and mark relevant places inside the community boundary.')
     st.info('There are 12 questions. Answer those you can; locations are optional. For a focus group, a facilitator can enter the group’s views. This survey does not request emergency assistance.')
+    st.caption('Submitted answers and selected locations are sent to Dingaan Mahlangu at dingaanm@gmail.com when email collection is enabled.')
     st.caption('Do not enter household names, identification numbers, personal health details or private contact numbers. Pins identify places or concerns, not named vulnerable households. Candidate safe places still require verification.')
     with st.expander('Continue from a saved draft'):
         uploaded=st.file_uploader('Choose your Armoede survey draft JSON',type=['json'],key='draft_upload')
@@ -118,7 +123,7 @@ def welcome():
     for field,label in [('session_code','Session code or group reference if supplied'),('area','Street or area within Armoede optional'),('language','Preferred discussion language optional')]:
         key='w_'+field;input_value(key,participant[field]);st.text_input(label,key=key,on_change=persist_participant,args=(field,key))
     input_value('w_consent',st.session_state.draft['consent'])
-    st.checkbox('I agree that my answers and selected locations may be recorded and reviewed by the Armoede engagement team to improve the SOPs.',key='w_consent',on_change=persist_field,args=('consent','w_consent'))
+    st.checkbox('I agree that my answers and selected locations may be recorded, emailed to Dingaan Mahlangu at dingaanm@gmail.com, and reviewed by the Armoede engagement team to improve the SOPs.',key='w_consent',on_change=persist_field,args=('consent','w_consent'))
     st.button('Start the questions →',type='primary',disabled=not st.session_state.draft['consent'],on_click=move,args=(1,),use_container_width=True)
 
 
@@ -192,9 +197,9 @@ def review():
             for point in a['locations']:st.text(f"{point['label']} ({point['lat']:.6f}, {point['lon']:.6f})")
     st.download_button('Download my answers CSV',csv_bytes([d]),file_name='Armoede_my_answers.csv',mime='text/csv',use_container_width=True)
     st.download_button('Download my locations GeoJSON',json.dumps(geojson_export([d]),ensure_ascii=False,indent=2),file_name='Armoede_my_locations.geojson',mime='application/geo+json',use_container_width=True)
-    can_submit=store.durable or not require_durable
+    can_submit=store.durable or not require_durable or email_ready
     if not can_submit:
-        st.info('Online collection is not yet configured. You can complete the survey and download your answers and draft. The organiser must configure a response database before server submission is enabled.')
+        st.info('Online collection is not yet configured. You can complete the survey and download your answers and draft. The organiser must configure a response database or Gmail email collection before submission is enabled.')
     if st.button('Submit my response',type='primary',disabled=not can_submit,use_container_width=True):
         errors=submission_errors(d)
         if errors:
@@ -203,7 +208,11 @@ def review():
             payload=copy.deepcopy(d);payload['submitted_at']=datetime.now(timezone.utc).isoformat()
             try:
                 inserted=store.save(payload)
-                st.session_state.submitted_receipt={'response_id':payload['response_id'],'submitted_at':payload['submitted_at'],'inserted':inserted,'payload':payload if inserted else None}
+                email_status='not_configured'
+                if email_ready:
+                    with st.spinner('Sending your response to the organiser…'):
+                        email_status=deliver_response(store,payload['response_id'],email_sender,email_password)
+                st.session_state.submitted_receipt={'response_id':payload['response_id'],'submitted_at':payload['submitted_at'],'inserted':inserted,'payload':payload if inserted else None,'email_status':email_status}
                 st.rerun()
             except Exception:
                 st.error('The response could not be saved. Your answers are still here. Download a backup and try again or contact the facilitator.')
@@ -226,6 +235,30 @@ def dashboard():
     selected_session=st.selectbox('Filter session',['All sessions']+sessions)
     filtered=[r for r in records if (not selected or r['participant']['role'] in selected) and (selected_session=='All sessions' or r['participant']['session_code']==selected_session)]
     st.metric('Responses in this selection',len(filtered))
+    st.markdown('**Email notifications**')
+    statuses=store.email_statuses()
+    st.caption(f'All notification emails go to {RECIPIENT}. “Sent” means Gmail accepted the message; it does not confirm inbox delivery.')
+    if not email_ready:
+        st.info('Configure EMAIL_ADDRESS and EMAIL_PASSWORD in Streamlit Secrets to enable Gmail sending.')
+    pending_ids=[r['response_id'] for r in filtered if statuses.get(r['response_id'],{}).get('status','pending') in ('pending','failed')]
+    if st.button('Email pending responses in this selection',disabled=not email_ready or not pending_ids,use_container_width=True):
+        results=[]
+        with st.spinner('Sending pending responses…'):
+            for rid in pending_ids[:10]:results.append(deliver_response(store,rid,email_sender,email_password))
+        st.success(f"Processed {len(results)} responses; Gmail accepted {results.count('sent')}. Refresh the dashboard to view updated statuses.")
+        st.caption('At most 10 are processed per click. Responses already sent are not automatically resent.')
+        statuses=store.email_statuses()
+    st.dataframe([{'Response':r['response_id'],'Email status':statuses.get(r['response_id'],{}).get('status','pending'),'Attempts':statuses.get(r['response_id'],{}).get('attempts',0),'Detail':statuses.get(r['response_id'],{}).get('detail','')} for r in filtered],hide_index=True,use_container_width=True)
+    uncertain_ids=[r['response_id'] for r in filtered if statuses.get(r['response_id'],{}).get('status') in ('uncertain','sending')]
+    if uncertain_ids:
+        with st.expander('Recover a notification with uncertain delivery'):
+            st.warning('Check Gmail first. A retry may send a duplicate if Gmail already received the earlier attempt. Wait until any active submission has finished.')
+            rid=st.selectbox('Response reference for manual retry',uncertain_ids)
+            confirm=st.checkbox('I have checked Gmail and understand this retry may duplicate an email.')
+            if st.button('Retry this notification',disabled=not email_ready or not confirm,use_container_width=True):
+                result=deliver_response(store,rid,email_sender,email_password,allow_uncertain=True)
+                st.info('Retry status: '+result)
+
     st.download_button('Export answers CSV',csv_bytes(filtered),file_name='Armoede_answers.csv',mime='text/csv',disabled=not filtered,use_container_width=True)
     st.download_button('Export mapped locations GeoJSON',json.dumps(geojson_export(filtered),ensure_ascii=False,indent=2),file_name='Armoede_locations.geojson',mime='application/geo+json',use_container_width=True)
     st.download_button('Export full response backup JSON',json.dumps(filtered,ensure_ascii=False,indent=2),file_name='Armoede_responses_backup.json',mime='application/json',use_container_width=True)
@@ -255,11 +288,23 @@ st.write('Your experience. Your places. Better disaster procedures.')
 page=st.radio('Choose area',['Survey','Facilitator dashboard'],horizontal=True,label_visibility='collapsed')
 if page=='Facilitator dashboard':dashboard()
 elif password_gate('survey'):
-    if not store.durable and not require_durable:
+    if not store.durable and email_ready:
+        st.info('Email collection is enabled. Submit to send your answers to the organiser. Download a backup; dashboard copies on this host may be temporary.')
+    elif not store.durable and not require_durable:
         st.warning('Local workshop storage is enabled. Responses are stored on this computer. Back up exports; this mode is not durable on Streamlit Cloud.')
     if 'submitted_receipt' in st.session_state:
         receipt=st.session_state.submitted_receipt
-        st.success('Thank you. Your response was saved.' if receipt['inserted'] else 'This response was already submitted. No duplicate was created; the original submission was retained.')
+        delivery=receipt.get('email_status','not_configured')
+        if not store.durable and require_durable and delivery!='sent':
+            st.warning('Your response has a temporary local copy, but email delivery is not yet confirmed. Download a backup and retry below.')
+        else:
+            st.success('Thank you. Your response was submitted.' if receipt['inserted'] else 'This response was already submitted. No duplicate response was created; the original submission was retained.')
+        if delivery=='sent':st.success('Gmail accepted your answers and locations for delivery to dingaanm@gmail.com.')
+        elif delivery in ('failed','pending','uncertain','sending'):
+            st.warning('The email has not been confirmed. The organiser can check its status in the facilitator dashboard.')
+        if email_ready and delivery in ('failed','pending'):
+            if st.button('Retry emailing my response',use_container_width=True):
+                receipt['email_status']=deliver_response(store,receipt['response_id'],email_sender,email_password);st.rerun()
         st.code(receipt['response_id'],language=None)
         st.caption('Keep this response reference for follow up. If this response was already submitted, edited draft answers have not replaced the original submission.')
         st.download_button('Download my submitted response JSON' if receipt['inserted'] else 'Download this session’s draft JSON',json.dumps(receipt['payload'] or st.session_state.draft,ensure_ascii=False,indent=2),file_name='Armoede_submitted_response.json' if receipt['inserted'] else 'Armoede_survey_draft.json',mime='application/json',use_container_width=True)
