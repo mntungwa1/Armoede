@@ -72,7 +72,7 @@ def test_widget_navigation_retains_answers_and_places(tmp_path,monkeypatch):
         next(b for b in at.button if b.label=='Submit my response').click().run()
         assert not at.exception
         assert len(Store(sqlite_path=tmp_path/'ui.db').all())==1
-        assert any('saved' in s.value for s in at.success)
+        assert any('submitted' in s.value for s in at.success)
 
 
 def test_dashboard_locked_and_cloud_submission_disabled(monkeypatch):
