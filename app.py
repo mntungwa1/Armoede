@@ -16,6 +16,8 @@ from storage import Store
 from map_view import survey_map
 from notifications import deliver_response,RECIPIENT
 from document_view import render_document
+from focus_view import render_entries,render_entry_dashboard
+from focus_core import QUESTIONNAIRES
 
 st.set_page_config(page_title='Armoede Community SOP Survey',page_icon='📍',layout='wide',initial_sidebar_state='collapsed')
 st.markdown('''<style>
@@ -286,6 +288,10 @@ def dashboard():
         st.error('Could not connect to the response database. Check the configured connection.');return
     st.caption('Submitted responses only. Participant drafts and personal session state are not visible here.')
     if not records:st.info('No submitted responses yet.');return
+    questionnaire=st.selectbox('Questionnaire to review',['Stakeholder map survey','Traditional Council','Wardens and General Stakeholders'])
+    code=next((c for c,g in QUESTIONNAIRES.items() if g['label']==questionnaire),None)
+    records=[r for r in records if r.get('record_type')=='focus_questionnaire' and r.get('questionnaire_type')==code] if code else [r for r in records if r.get('record_type')!='focus_questionnaire']
+    if not records:st.info('No submitted responses for this questionnaire yet.');return
     roles=sorted({r['participant']['role'] for r in records})
     selected=st.multiselect('Filter stakeholder groups',roles)
     sessions=sorted({r['participant']['session_code'] for r in records if r['participant']['session_code']})
@@ -315,6 +321,10 @@ def dashboard():
             if st.button('Retry this notification',disabled=not email_ready or not confirm,use_container_width=True):
                 result=deliver_response(store,rid,email_sender,email_password,allow_uncertain=True)
                 st.info('Retry status: '+result)
+
+    if code:
+        render_entry_dashboard(filtered)
+        return
 
     st.download_button('Export answers CSV',csv_bytes(filtered),file_name='Armoede_answers.csv',mime='text/csv',disabled=not filtered,use_container_width=True)
     st.download_button('Export mapped locations GeoJSON',json.dumps(geojson_export(filtered),ensure_ascii=False,indent=2),file_name='Armoede_locations.geojson',mime='application/geo+json',use_container_width=True)
@@ -346,7 +356,8 @@ st.write('Your experience. Your places. Better disaster procedures.')
 page=st.radio('Choose area',['Survey','Facilitator dashboard'],horizontal=True,label_visibility='collapsed')
 if page=='Facilitator dashboard':dashboard()
 elif password_gate('survey'):
-    survey_tab,plan_tab,sops_tab=st.tabs(['Stakeholder survey','DRM Plan','Draft SOPs'])
+    entries_tab,survey_tab,plan_tab,sops_tab=st.tabs(['Questionnaire entries','Stakeholder survey','DRM Plan','Draft SOPs'])
+    with entries_tab:render_entries(store,require_durable,email_sender,email_password)
     with plan_tab:render_document('plan')
     with sops_tab:render_document('sops')
     with survey_tab:

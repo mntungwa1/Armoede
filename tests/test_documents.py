@@ -20,7 +20,7 @@ def test_documents_are_protected_by_survey_password():
         at.text_input[0].input('test-access')
         next(b for b in at.button if b.label=='Open survey').click().run()
         assert not at.exception
-        assert [t.label for t in at.tabs]==['Stakeholder survey','DRM Plan','Draft SOPs']
+        assert [t.label for t in at.tabs]==['Questionnaire entries','Stakeholder survey','DRM Plan','Draft SOPs']
         assert len([b for b in at.get('download_button') if b.label=='Download Word document'])==2
 
 def test_previews_preserve_answer_and_can_be_closed():

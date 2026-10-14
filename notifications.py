@@ -9,6 +9,9 @@ RECIPIENT='dingaanm@gmail.com'
 
 
 def build_message(payload,sender):
+    if payload.get('record_type')=='focus_questionnaire':
+        from focus_core import build_entry_message
+        return build_entry_message(payload,sender,RECIPIENT)
     msg=EmailMessage()
     msg['From']=sender;msg['To']=RECIPIENT
     msg['Subject']=f"Armoede survey response {payload['response_id'][:8]}"

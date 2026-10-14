@@ -140,3 +140,11 @@ When Gmail is the only configured destination, download a backup if sending fail
 After saving Secrets and deploying the update, submit a short test answer through the survey, check Inbox and Spam, and verify the response and email status in the facilitator dashboard. Real Gmail sending has not been tested by the developer because credentials stay private in the deployed app; automated tests simulate SMTP success, authentication failures, ambiguous delivery, duplicate clicks and email-only submission.
 
 Google guidance: https://support.google.com/mail/answer/185833
+
+## Questionnaire entries
+
+The first tab is **Questionnaire entries**, with radio choices for **Traditional Council** and **Wardens and General Stakeholders**. Questions and prompts come from the supplied ACDT discussion guides: each has 21 main questions, six hazard scenarios, three closing questions and an optional facilitator action table. General stakeholders use the Wardens guide from their own role and experience; the original wording is retained.
+
+The two choices keep separate drafts during a session. Download a questionnaire draft before closing or refreshing and restore it in the first tab to continue. The original map-based stakeholder survey remains on the second tab. Document previews and Word downloads follow it.
+
+Questionnaire submissions use the same storage, consent, password gate and Gmail notification settings as the map survey. The facilitator dashboard's **Questionnaire to review** selector separates map survey responses, Traditional Council entries and Wardens/general stakeholder entries; CSV and JSON exports include all questionnaire answers and action records. Hosted local storage may be temporary unless DATABASE_URL is configured. No participant answers or credentials are stored in the repository.

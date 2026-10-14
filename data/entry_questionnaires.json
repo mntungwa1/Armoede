@@ -1,0 +1,366 @@
+{
+  "traditional": {
+    "label": "Traditional Council",
+    "source": "ACDT DRR SOP Development_Traditional Council Questionnaire(1).docx",
+    "purpose": "Purpose: Gather the Traditional Council’s input into the four practical SOPs that will implement the existing approved DRR and Resilience Implementation Plan.",
+    "opening": "Opening statement for the facilitator: “The DRR Plan is already in place. Today’s discussion will help us develop simple procedures explaining when action is needed, who does what, who must be contacted and what must be recorded. We would like to understand current arrangements and your recommendations for improving them.”",
+    "approach": "Facilitation approach: Ask the main questions in plain language. Use the prompts where needed, and request examples from actual incidents. Distinguish current practice from proposed arrangements and identify matters requiring confirmation or authorisation.",
+    "questions": [
+      {
+        "id": "1",
+        "question": "What responsibilities should the Traditional Council have in implementing the DRR Plan?",
+        "prompts": "What does the Council already do? Which responsibilities need clarification?",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison"
+      },
+      {
+        "id": "2",
+        "question": "Who should be the Council’s main contact for DRR matters?",
+        "prompts": "Who is the alternative when that person is unavailable? How should their contact details be shared and kept current?",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison"
+      },
+      {
+        "id": "3",
+        "question": "Which actions can the Council take directly, and which require authorisation or referral?",
+        "prompts": "Who makes decisions within the Council? Which matters must go to ACDT, Monte View, municipal disaster management or emergency services?",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison"
+      },
+      {
+        "id": "4",
+        "question": "How should the Council coordinate with DRR Wardens and other institutions?",
+        "prompts": "Who reports to whom? Which communication channels should be used? What happens when there is no response?",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison"
+      },
+      {
+        "id": "5",
+        "question": "How should DRR decisions and outstanding actions be recorded and followed up?",
+        "prompts": "Who keeps the record? Who receives reports? How should revised procedures be communicated?",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison"
+      },
+      {
+        "id": "6",
+        "question": "When a risk identified in the DRR Plan is observed or reported, what should the Council do?",
+        "prompts": "Who receives and checks the report? Who arranges preventive action? When must the matter be referred?",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning"
+      },
+      {
+        "id": "7",
+        "question": "What should the Council help check before a high-risk season or anticipated event?",
+        "prompts": "Contact persons, volunteers, venues, transport and other resources. Who follows up on gaps?",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning"
+      },
+      {
+        "id": "8",
+        "question": "How should an early warning be checked and communicated to residents?",
+        "prompts": "What is the trusted source? Who confirms the message? Who communicates it? How are rumours corrected and people without phones reached?",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning"
+      },
+      {
+        "id": "9",
+        "question": "How should evacuation arrangements be prepared in advance?",
+        "prompts": "Suitable routes and assembly points; permission to use venues; transport; arrangements for notifying residents. Who must verify their suitability?",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning"
+      },
+      {
+        "id": "10",
+        "question": "How should residents who may need additional assistance be identified and supported?",
+        "prompts": "Older persons, children, persons with disabilities and people with limited mobility. Who maintains necessary information, protects it and updates arrangements?",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning"
+      },
+      {
+        "id": "11",
+        "question": "When the Council receives an emergency report, what should happen first?",
+        "prompts": "What details are needed? Who checks the report? Who must be contacted immediately?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "12",
+        "question": "What should trigger the mobilisation of the Council’s support?",
+        "prompts": "Who initiates it? Who acts if the designated person is unavailable? Which situations require immediate contact with emergency services?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "13",
+        "question": "How should the Council organise its support during an emergency?",
+        "prompts": "Who coordinates Council activities? Who liaises with Wardens, responders and ACDT/Monte View? Who communicates verified information to residents?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "14",
+        "question": "What should the Council do when residents need to move to safety?",
+        "prompts": "How are authorised instructions relayed? Who helps mobilise transport and venues? How is assistance arranged for vulnerable residents?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "15",
+        "question": "How should community resources and volunteers be mobilised safely?",
+        "prompts": "Who requests and authorises their use? What tasks are suitable? Which tasks must be left to trained responders?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "16",
+        "question": "What should happen when responders arrive and when immediate danger has passed?",
+        "prompts": "Who provides information and hands over coordination? Who communicates that it is safe to return or stand down? What must be recorded?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "17",
+        "question": "How should the Council help establish who has been affected and what assistance is needed?",
+        "prompts": "Who gathers and verifies information? How are urgent and unmet needs referred? How do we avoid excluding households or duplicating records?",
+        "section": "SOP 4: Relief, Recovery and Build Back Better"
+      },
+      {
+        "id": "18",
+        "question": "What role should the Council play in requesting and supporting relief distribution?",
+        "prompts": "Who submits requests? How are needs prioritised fairly? Who records assistance received and distributed?",
+        "section": "SOP 4: Relief, Recovery and Build Back Better"
+      },
+      {
+        "id": "19",
+        "question": "How should residents raise complaints or report that they have not received necessary assistance?",
+        "prompts": "Who receives concerns? Who refers them? How are residents informed of the outcome?",
+        "section": "SOP 4: Relief, Recovery and Build Back Better"
+      },
+      {
+        "id": "20",
+        "question": "How should the Council contribute to recovery that reduces future risk?",
+        "prompts": "Restoring services and livelihoods; safer repair or rebuilding; identifying priorities; referring matters requiring technical advice or approval.",
+        "section": "SOP 4: Relief, Recovery and Build Back Better"
+      },
+      {
+        "id": "21",
+        "question": "How should the Council review an incident and follow up on improvements?",
+        "prompts": "Who participates? What worked or failed? Who is assigned corrective actions? How is completion confirmed?",
+        "section": "SOP 4: Relief, Recovery and Build Back Better"
+      }
+    ],
+    "scenario_instruction": "Brief scenario check: For each situation below, ask: “What should the Council do first, whom should it contact, and what specific community support would be needed?”",
+    "scenarios": [
+      {
+        "id": "1",
+        "question": "Flooding and severe weather",
+        "prompts": "Warning, access, evacuation and temporary shelter arrangements."
+      },
+      {
+        "id": "2",
+        "question": "Fire and electrical incidents",
+        "prompts": "Immediate notification, keeping residents away from danger and support for displaced households."
+      },
+      {
+        "id": "3",
+        "question": "Water interruption, drought and extreme heat",
+        "prompts": "Reporting, communicating verified information and supporting people most at risk."
+      },
+      {
+        "id": "4",
+        "question": "Medical and public-health incidents",
+        "prompts": "Contacting relevant health services, communicating authorised advice and protecting privacy."
+      },
+      {
+        "id": "5",
+        "question": "Community-safety incidents",
+        "prompts": "Contacting the appropriate authorities, safe communication and avoiding actions that escalate tensions."
+      },
+      {
+        "id": "6",
+        "question": "Mining-related and environmental incidents",
+        "prompts": "Reporting to relevant institutions, communicating verified instructions and keeping residents away from hazardous areas."
+      }
+    ],
+    "closing": [
+      "What are the three most important arrangements that these SOPs must make clear?",
+      "Which proposed responsibilities or arrangements need confirmation by other institutions?",
+      "What support would the Council need to carry out its agreed role?"
+    ],
+    "action_columns": [
+      "SOP/action",
+      "Trigger",
+      "Responsible person and authority",
+      "Steps and contacts",
+      "Record required",
+      "Closure/follow-up",
+      "Confirmation needed"
+    ]
+  },
+  "wardens": {
+    "label": "Wardens and General Stakeholders",
+    "source": "ACDT DRR SOP Development_DRR Wardens Questionnaire(1).docx",
+    "purpose": "Purpose: Gather the trained DRR Wardens’ practical input into the four SOPs that will implement the existing approved DRR and Resilience Implementation Plan, drawing on their previous training, local knowledge and experience.",
+    "opening": "Opening statement for the facilitator: “We previously worked together on DRR training, and the DRR Plan is already in place. Today’s discussion will help us turn that foundation into simple procedures you can follow in practice. We want to understand which arrangements are clear, where difficulties remain, and what steps, contacts and tools you need to carry out your responsibilities safely.”",
+    "approach": "Facilitation approach: Build on the Wardens’ previous training without assuming that every procedure is already understood or operational. Ask the main questions in plain language and use the prompts where needed. Request examples from incidents, training exercises or local observations. Distinguish current practice from proposed arrangements, and identify matters requiring confirmation or authorisation.",
+    "questions": [
+      {
+        "id": "1",
+        "question": "Based on your training, what are your responsibilities as DRR Wardens, and which need clarification?",
+        "prompts": "What have you been able to put into practice? Which tasks are outside your role, training or authority?",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison"
+      },
+      {
+        "id": "2",
+        "question": "How should Warden responsibilities be organised across the community?",
+        "prompts": "Who covers each area? Who coordinates the Wardens? Who acts when a Warden or coordinator is unavailable?",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison"
+      },
+      {
+        "id": "3",
+        "question": "Who should you report to, and which actions require authorisation or referral?",
+        "prompts": "What can you do immediately within your role? Who authorises other actions? When must you contact emergency services directly?",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison"
+      },
+      {
+        "id": "4",
+        "question": "How should you communicate with other Wardens, the Traditional Council, ACDT, Monte View and relevant services?",
+        "prompts": "Which channels work reliably? Who maintains contact details? What happens when a contact does not respond?",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison"
+      },
+      {
+        "id": "5",
+        "question": "How should routine observations, decisions and outstanding actions be recorded and followed up?",
+        "prompts": "Who completes and receives records? Who checks progress? How should changes to procedures be communicated to all Wardens?",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison"
+      },
+      {
+        "id": "6",
+        "question": "When you observe or receive a report of a risk identified in the DRR Plan, what steps should you follow?",
+        "prompts": "What information should you check and record? Who receives the report? What safe preventive action can you take, and what must be referred?",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning"
+      },
+      {
+        "id": "7",
+        "question": "What should you check regularly and before a high-risk season or anticipated event?",
+        "prompts": "Warden availability, contacts, communication devices, equipment, transport and other resources. How should gaps be reported and followed up?",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning"
+      },
+      {
+        "id": "8",
+        "question": "How should you receive, verify and communicate an early warning?",
+        "prompts": "Which sources are trusted? Who confirms or approves the message? How do you reach people without phones and confirm that warnings were received?",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning"
+      },
+      {
+        "id": "9",
+        "question": "What should you do in advance to prepare for an evacuation?",
+        "prompts": "Routes, assembly points, access, transport and assigned responsibilities. Who confirms suitability? How should arrangements be practised and updated?",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning"
+      },
+      {
+        "id": "10",
+        "question": "How should you prepare to assist residents who may need additional support?",
+        "prompts": "Who may need help receiving warnings or moving to safety? How is assistance arranged? What information is necessary, who may access it, and how is it kept current?",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning"
+      },
+      {
+        "id": "11",
+        "question": "When you receive an emergency report or discover an incident, what should you do first?",
+        "prompts": "What details are needed? How do you assess immediate danger safely? Which urgent notifications or actions must not wait for further verification?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "12",
+        "question": "What should trigger the activation of the Wardens, and how should this happen?",
+        "prompts": "Who initiates activation? How are available Wardens contacted? What happens outside normal hours or when the coordinator is unavailable?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "13",
+        "question": "How should Wardens organise themselves at an incident?",
+        "prompts": "Who coordinates community support until responders arrive? How are tasks allocated? How do you maintain communication and avoid conflicting instructions?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "14",
+        "question": "How should you support residents moving to safety?",
+        "prompts": "Who gives evacuation instructions? How do you guide people, assist vulnerable residents and account for arrivals or missing persons? How are missing persons reported without undertaking unsafe searches?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "15",
+        "question": "How should you recognise when a task is unsafe or beyond your training and authority?",
+        "prompts": "What should you avoid? When should you withdraw, keep others away and request specialist assistance? What if equipment is unavailable or communication fails?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "16",
+        "question": "What should you do when responders arrive and when the incident is stood down?",
+        "prompts": "What information and records should you hand over? Who confirms stand-down or safe return? How do you account for Wardens and equipment and report unresolved needs?",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response"
+      },
+      {
+        "id": "17",
+        "question": "How should you gather and report information about affected households, urgent needs and damage?",
+        "prompts": "What minimum information is needed? How is it verified safely? Which assessments require specialists? How are duplicate records avoided and urgent needs escalated?",
+        "section": "SOP 4: Relief, Recovery and Build Back Better"
+      },
+      {
+        "id": "18",
+        "question": "What steps should you follow when supporting relief requests, receipt and distribution?",
+        "prompts": "Who authorises assistance? How are supplies and recipients recorded? How are needs prioritised fairly and shortages or discrepancies reported?",
+        "section": "SOP 4: Relief, Recovery and Build Back Better"
+      },
+      {
+        "id": "19",
+        "question": "How should you handle unmet needs, complaints or concerns about assistance?",
+        "prompts": "Who receives referrals? How are concerns recorded confidentially? Who follows up and informs the affected person of the outcome?",
+        "section": "SOP 4: Relief, Recovery and Build Back Better"
+      },
+      {
+        "id": "20",
+        "question": "How should you support recovery that reduces future risk?",
+        "prompts": "What continuing risks should you report? How can you track restoration of services and livelihoods? Which repair or rebuilding decisions require technical advice or approval?",
+        "section": "SOP 4: Relief, Recovery and Build Back Better"
+      },
+      {
+        "id": "21",
+        "question": "How should you contribute to closing an incident and improving future readiness?",
+        "prompts": "What records must be completed? What worked or failed? Who follows up corrective actions? What equipment, procedure or refresher-training needs should be recorded?",
+        "section": "SOP 4: Relief, Recovery and Build Back Better"
+      }
+    ],
+    "scenario_instruction": "Brief scenario check: For each situation below, ask: “Drawing on your training, what would you do first, whom would you contact, what would you avoid, and what would you record?”",
+    "scenarios": [
+      {
+        "id": "1",
+        "question": "Flooding and severe weather",
+        "prompts": "Warning dissemination, safe routes, evacuation support, assembly-point accountability and escalation; avoiding floodwater and unsafe rescue attempts."
+      },
+      {
+        "id": "2",
+        "question": "Fire and electrical incidents",
+        "prompts": "Immediate notification, keeping people away from danger, evacuation support and reporting; limits on firefighting and contact with electrical equipment."
+      },
+      {
+        "id": "3",
+        "question": "Water interruption, drought and extreme heat",
+        "prompts": "Reporting conditions, communicating verified advice, checking on vulnerable residents and referring urgent needs."
+      },
+      {
+        "id": "4",
+        "question": "Medical and public-health incidents",
+        "prompts": "Contacting health services, assistance within training, following authorised advice and protecting personal information."
+      },
+      {
+        "id": "5",
+        "question": "Community-safety incidents",
+        "prompts": "Safe observation and reporting, contacting appropriate authorities and avoiding confrontation or unauthorised intervention."
+      },
+      {
+        "id": "6",
+        "question": "Mining-related and environmental incidents",
+        "prompts": "Reporting location and observable conditions from a safe position, communicating authorised instructions and avoiding hazardous areas or substances."
+      }
+    ],
+    "closing": [
+      "What are the three most important things these SOPs must make clear for Wardens?",
+      "Which arrangements require confirmation by the Traditional Council, ACDT, Monte View or external services?",
+      "What additional tools, equipment or refresher training would help you apply the SOPs safely and consistently?"
+    ],
+    "action_columns": [
+      "SOP/action",
+      "Trigger",
+      "Responsible person and authority",
+      "Steps and contacts",
+      "Record required",
+      "Closure/follow-up",
+      "Confirmation needed"
+    ]
+  }
+}
