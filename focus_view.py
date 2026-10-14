@@ -64,15 +64,26 @@ def render_entries(store,require_durable,email_sender,email_password):
     st.caption('Record group-level views. Do not enter private contact details, household names or sensitive personal information. Use your separate attendance register for participant identities.')
     for field in META:_text(code,'metadata',field,field+' (optional)')
     for section in dict.fromkeys(q['section'] for q in guide['questions']):
-        with st.expander(section):
+        with st.expander(section,expanded=section==guide['questions'][0]['section']):
             for q in guide['questions']:
                 if q['section']!=section:continue
-                st.markdown(f"**{q['id']}. {q['question']}**");st.caption(q['prompts'])
-                _text(code,'answers',q['id'],'Answer '+q['id'])
+                with st.container(border=True):
+                    main_column,prompt_column=st.columns(2,gap='large')
+                    with main_column:
+                        st.markdown('**Main question**')
+                        st.write(f"{q['id']}. {q['question']}")
+                    with prompt_column:
+                        st.markdown('**Follow-up questions / prompts**')
+                        st.write(q['prompts'])
+                    _text(code,'answers',q['id'],'Answer '+q['id']+' — include the follow-up questions')
     with st.expander('Priority hazard scenarios'):
         st.write(guide['scenario_instruction'])
         for q in guide['scenarios']:
-            st.markdown('**'+q['question']+'**');st.caption(q['prompts'])
+            scenario_column,prompt_column=st.columns(2,gap='large')
+            with scenario_column:
+                st.markdown('**Priority hazard scenario**');st.write(q['question'])
+            with prompt_column:
+                st.markdown('**Input to capture**');st.write(q['prompts'])
             _text(code,'scenarios',q['id'],'Scenario response '+q['id'])
     with st.expander('Closing questions'):
         for i,q in enumerate(guide['closing'],1):_text(code,'closing',str(i),q)

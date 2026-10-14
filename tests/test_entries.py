@@ -32,8 +32,12 @@ def test_switch_restore_submit_and_dashboard(tmp_path,monkeypatch):
         at=AppTest.from_file(str(ROOT/'app.py'),default_timeout=60).run()
         assert not at.exception
         assert at.tabs[0].label=='Questionnaire entries'
+        for q in QUESTIONNAIRES['traditional']['questions']:
+            assert any(q['prompts']==m.value for m in at.markdown)
         at.text_area(key='focus_traditional_answers_1').input('Council answer').run()
         at.radio(key='focus_choice').set_value('Wardens and General Stakeholders').run()
+        for q in QUESTIONNAIRES['wardens']['questions']:
+            assert any(q['prompts']==m.value for m in at.markdown)
         at.text_area(key='focus_wardens_answers_1').input('Warden answer').run()
         at.radio(key='focus_choice').set_value('Traditional Council').run()
         assert at.text_area(key='focus_traditional_answers_1').value=='Council answer'
