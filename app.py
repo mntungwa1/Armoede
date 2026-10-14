@@ -15,6 +15,7 @@ from survey_core import (QUESTIONS,SOPS,RATINGS,new_draft,validate_draft,inside_
 from storage import Store
 from map_view import survey_map
 from notifications import deliver_response,RECIPIENT
+from document_view import render_document
 
 st.set_page_config(page_title='Armoede Community SOP Survey',page_icon='📍',layout='wide',initial_sidebar_state='collapsed')
 st.markdown('''<style>
@@ -338,45 +339,50 @@ def dashboard():
             st.text(r['closing'] or 'No additional concern')
 
 
+st.image(str(Path(__file__).parent/'assets/Armoede_Logo.png'),width=125)
 st.caption('ARMOEDE COMMUNITY DEVELOPMENT TRUST · COMMUNITY ENGAGEMENT')
 st.title('Armoede Community SOP Survey')
 st.write('Your experience. Your places. Better disaster procedures.')
 page=st.radio('Choose area',['Survey','Facilitator dashboard'],horizontal=True,label_visibility='collapsed')
 if page=='Facilitator dashboard':dashboard()
 elif password_gate('survey'):
-    if not store.durable and email_ready:
-        st.info('Email collection is enabled. Submit to send your answers to the organiser. Download a backup; dashboard copies on this host may be temporary.')
-    elif not store.durable and not require_durable:
-        st.warning('Local workshop storage is enabled. Responses are stored on this computer. Back up exports; this mode is not durable on Streamlit Cloud.')
-    if 'submitted_receipt' in st.session_state:
-        receipt=st.session_state.submitted_receipt
-        delivery=receipt.get('email_status','not_configured')
-        if not store.durable and require_durable and delivery!='sent':
-            st.warning('Your response has a temporary local copy, but email delivery is not yet confirmed. Download a backup and retry below.')
+    survey_tab,plan_tab,sops_tab=st.tabs(['Stakeholder survey','DRM Plan','Draft SOPs'])
+    with plan_tab:render_document('plan')
+    with sops_tab:render_document('sops')
+    with survey_tab:
+        if not store.durable and email_ready:
+            st.info('Email collection is enabled. Submit to send your answers to the organiser. Download a backup; dashboard copies on this host may be temporary.')
+        elif not store.durable and not require_durable:
+            st.warning('Local workshop storage is enabled. Responses are stored on this computer. Back up exports; this mode is not durable on Streamlit Cloud.')
+        if 'submitted_receipt' in st.session_state:
+            receipt=st.session_state.submitted_receipt
+            delivery=receipt.get('email_status','not_configured')
+            if not store.durable and require_durable and delivery!='sent':
+                st.warning('Your response has a temporary local copy, but email delivery is not yet confirmed. Download a backup and retry below.')
+            else:
+                st.success('Thank you. Your response was submitted.' if receipt['inserted'] else 'This response was already submitted. No duplicate response was created; the original submission was retained.')
+            if delivery=='sent':st.success('Gmail accepted your answers and locations for delivery to dingaanm@gmail.com.')
+            elif delivery in ('failed','pending','uncertain','sending'):
+                st.warning('The email has not been confirmed. The organiser can check its status in the facilitator dashboard.')
+            if email_ready and delivery in ('failed','pending'):
+                if st.button('Retry emailing my response',use_container_width=True):
+                    receipt['email_status']=deliver_response(store,receipt['response_id'],email_sender,email_password);st.rerun()
+            st.code(receipt['response_id'],language=None)
+            st.caption('Keep this response reference for follow up. If this response was already submitted, edited draft answers have not replaced the original submission.')
+            st.download_button('Download my submitted response JSON' if receipt['inserted'] else 'Download this session’s draft JSON',json.dumps(receipt['payload'] or st.session_state.draft,ensure_ascii=False,indent=2),file_name='Armoede_submitted_response.json' if receipt['inserted'] else 'Armoede_survey_draft.json',mime='application/json',use_container_width=True)
+            st.button('Start a separate response',on_click=fresh_response,use_container_width=True)
         else:
-            st.success('Thank you. Your response was submitted.' if receipt['inserted'] else 'This response was already submitted. No duplicate response was created; the original submission was retained.')
-        if delivery=='sent':st.success('Gmail accepted your answers and locations for delivery to dingaanm@gmail.com.')
-        elif delivery in ('failed','pending','uncertain','sending'):
-            st.warning('The email has not been confirmed. The organiser can check its status in the facilitator dashboard.')
-        if email_ready and delivery in ('failed','pending'):
-            if st.button('Retry emailing my response',use_container_width=True):
-                receipt['email_status']=deliver_response(store,receipt['response_id'],email_sender,email_password);st.rerun()
-        st.code(receipt['response_id'],language=None)
-        st.caption('Keep this response reference for follow up. If this response was already submitted, edited draft answers have not replaced the original submission.')
-        st.download_button('Download my submitted response JSON' if receipt['inserted'] else 'Download this session’s draft JSON',json.dumps(receipt['payload'] or st.session_state.draft,ensure_ascii=False,indent=2),file_name='Armoede_submitted_response.json' if receipt['inserted'] else 'Armoede_survey_draft.json',mime='application/json',use_container_width=True)
-        st.button('Start a separate response',on_click=fresh_response,use_container_width=True)
-    else:
-        if not st.session_state.draft['consent']:st.session_state.stage=0
-        stage=st.session_state.stage
-        notice=st.session_state.get('restore_notice')
-        if notice:
-            st.success(f"Draft restored: {notice['answered']} questions with saved input and {notice['locations']} attached locations.")
-            if not notice['answered']:
-                st.warning('This file contains no saved question answers or map locations. Participant details have been restored; check that you selected the intended draft file.')
-            if stage==0 and notice['answered']:
-                st.info('Your answers are restored. Confirm consent if needed, then select Start the questions to view them.')
-        if stage==0:welcome()
-        elif stage<=12:question_page(stage)
-        else:review()
-        st.divider();draft_download()
+            if not st.session_state.draft['consent']:st.session_state.stage=0
+            stage=st.session_state.stage
+            notice=st.session_state.get('restore_notice')
+            if notice:
+                st.success(f"Draft restored: {notice['answered']} questions with saved input and {notice['locations']} attached locations.")
+                if not notice['answered']:
+                    st.warning('This file contains no saved question answers or map locations. Participant details have been restored; check that you selected the intended draft file.')
+                if stage==0 and notice['answered']:
+                    st.info('Your answers are restored. Confirm consent if needed, then select Start the questions to view them.')
+            if stage==0:welcome()
+            elif stage<=12:question_page(stage)
+            else:review()
+            st.divider();draft_download()
 st.divider();st.caption('Developed by Dingaan Mahlangu · NCUMA Risk Management Consultancy. Based on the Armoede focus group guide and supplied Ga-Sekhaolelo boundary. This consultation supports SOP refinement and does not approve operational locations or replace emergency services.')

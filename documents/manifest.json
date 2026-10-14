@@ -1,0 +1,26 @@
+{
+  "documents/Armoede_DRM_Plan.docx": {
+    "sha256": "98e449183152959602a4069147a6fccb5ff33d3984486a1415fe8d42441d5e31",
+    "bytes": 17977878,
+    "parts": [
+      "documents/Armoede_DRM_Plan.docx.part1",
+      "documents/Armoede_DRM_Plan.docx.part2"
+    ]
+  },
+  "documents/Armoede_Draft_SOPs.docx": {
+    "sha256": "40c0521feaf808618ed5d635256e0c3d18c8476cffa4e858cd9a2d8a6973793a",
+    "bytes": 7543106
+  },
+  "documents/Armoede_DRM_Plan.pdf": {
+    "sha256": "28d42b5217ec17e19312ef2ed53e134390f0ade0dd263665249bcc3225b0adaa",
+    "bytes": 6718880
+  },
+  "documents/Armoede_Draft_SOPs.pdf": {
+    "sha256": "a51bbc0876900bdcabe69947796dd930a82e5661fca0261761e8eb68090e2196",
+    "bytes": 2031358
+  },
+  "assets/Armoede_Logo.png": {
+    "sha256": "e7145ee26d1fe3be67fe29a11de35c6387d4e1420a9de7863cb0fa67396763fe",
+    "bytes": 449576
+  }
+}
