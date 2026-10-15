@@ -47,7 +47,7 @@ def test_notification_sent_once_and_original_payload_retained(tmp_path):
 
 def test_pre_send_failure_can_retry_and_send_timeout_is_not_auto_retried(tmp_path):
     d=payload();store=Store(sqlite_path=tmp_path/'outbox.db');store.save(d)
-    with patch('notifications.smtplib.SMTP',side_effect=OSError('test error containing a sensitive string')):
+    with patch('notifications.smtplib.SMTP',side_effect=OSError('test error containing a sensitive string')),patch('notifications.smtplib.SMTP_SSL',side_effect=OSError('blocked')):
         assert deliver_response(store,d['response_id'],'dingaanm@gmail.com','testpassword')=='failed'
     assert 'sensitive string' not in store.email_statuses()[d['response_id']]['detail']
     class UncertainSMTP(FakeSMTP):
@@ -58,6 +58,28 @@ def test_pre_send_failure_can_retry_and_send_timeout_is_not_auto_retried(tmp_pat
     assert store.email_statuses()[d['response_id']]['attempts']==2
     with patch('notifications.smtplib.SMTP',FakeSMTP):
         assert deliver_response(store,d['response_id'],'dingaanm@gmail.com','testpassword',allow_uncertain=True)=='sent'
+
+
+def test_secure_fallback_before_send(tmp_path):
+    d=payload();store=Store(sqlite_path=tmp_path/'fallback.db');store.save(d)
+    class SecureSMTP(FakeSMTP):
+        def __init__(self,host,port,timeout,context):
+            assert host=='smtp.gmail.com' and port==465 and context.check_hostname
+    with patch('notifications.smtplib.SMTP',side_effect=OSError('blocked')),patch('notifications.smtplib.SMTP_SSL',SecureSMTP):
+        assert deliver_response(store,d['response_id'],' dingaanm@gmail.com ','test password')=='sent'
+
+
+def test_authentication_failure_gives_safe_action_without_fallback(tmp_path):
+    import smtplib
+    d=payload();store=Store(sqlite_path=tmp_path/'auth.db');store.save(d)
+    class AuthSMTP(FakeSMTP):
+        def login(self,*args):raise smtplib.SMTPAuthenticationError(535,b'private provider details')
+    with patch('notifications.smtplib.SMTP',AuthSMTP),patch('notifications.smtplib.SMTP_SSL') as fallback:
+        assert deliver_response(store,d['response_id'],'dingaanm@gmail.com','testpassword')=='failed'
+        fallback.assert_not_called()
+    detail=store.email_statuses()[d['response_id']]['detail']
+    assert 'Gmail rejected sign-in' in detail and 'EMAIL_PASSWORD' in detail
+    assert 'private provider details' not in detail
 
 
 def test_claim_is_exclusive(tmp_path):

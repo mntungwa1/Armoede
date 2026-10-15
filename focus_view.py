@@ -47,6 +47,11 @@ def render_entries(store,require_durable,email_sender,email_password):
     if receipt:
         st.success('This questionnaire is recorded. Reference: '+receipt['response_id'])
         status=receipt['email_status'];st.info('Email status: '+status)
+        if status=='sent':st.success('Gmail accepted your questionnaire for delivery to dingaanm@gmail.com. Check Inbox and Spam.')
+        elif status!='not_configured':
+            detail=store.email_statuses().get(receipt['response_id'],{}).get('detail')
+            if detail:st.warning(detail)
+        else:st.warning('Email is not configured. Add EMAIL_ADDRESS and EMAIL_PASSWORD in Streamlit Secrets to enable submission emails.')
         if status in ['failed','pending'] and email_password:
             if st.button('Retry questionnaire email',key='focus_retry_'+code):
                 receipt['email_status']=deliver_response(store,receipt['response_id'],email_sender,email_password);st.rerun()

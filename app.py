@@ -375,6 +375,10 @@ elif password_gate('survey'):
             if delivery=='sent':st.success('Gmail accepted your answers and locations for delivery to dingaanm@gmail.com.')
             elif delivery in ('failed','pending','uncertain','sending'):
                 st.warning('The email has not been confirmed. The organiser can check its status in the facilitator dashboard.')
+                detail=store.email_statuses().get(receipt['response_id'],{}).get('detail')
+                if detail:st.warning(detail)
+            elif delivery=='not_configured':
+                st.warning('The response was recorded, but email is not configured. Add EMAIL_ADDRESS and EMAIL_PASSWORD in Streamlit Secrets to enable submission emails.')
             if email_ready and delivery in ('failed','pending'):
                 if st.button('Retry emailing my response',use_container_width=True):
                     receipt['email_status']=deliver_response(store,receipt['response_id'],email_sender,email_password);st.rerun()
