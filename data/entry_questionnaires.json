@@ -362,5 +362,387 @@
       "Closure/follow-up",
       "Confirmation needed"
     ]
+  },
+  "district": {
+    "label": "District Municipality",
+    "source": "Armoede municipal consultation questionnaire developed for local officials and district disaster management centres",
+    "purpose": "Gather district municipality officials’ input on risks, services and coordination affecting Armoede / Ga-Sekhaolelo, to inform the four community SOPs.",
+    "opening": "Answer from your institution’s actual role in Armoede. Describe current arrangements and local examples, then identify proposed improvements and matters needing confirmation. This consultation does not approve procedures or commit resources.",
+    "approach": "Use the main questions and follow-up prompts to record your institution’s responsibilities and its interface with the other sphere of government and community structures. Keep answers specific to Armoede. Leave questions outside your role unanswered or identify the responsible institution. Distinguish existing arrangements, proposals and matters requiring confirmation.",
+    "metadata_fields": [
+      "Municipality or disaster management centre",
+      "Department or function",
+      "Official role or designation",
+      "Service area covering Armoede"
+    ],
+    "required_metadata": [
+      "Municipality or disaster management centre"
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "What district disaster management functions and support arrangements cover Armoede?",
+        "prompts": "Describe the district centre’s area of coverage, coordination, technical advice and support to the local municipality. Which services are provided directly, which rest with local government or other institutions, and what responsibilities need clarification?"
+      },
+      {
+        "id": "2",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "How should Armoede and the local municipality reach the district disaster management centre?",
+        "prompts": "Identify official duty functions, operating hours, after-hours alternatives and emergency reporting routes. Which community reports may go directly to the district, and which use the local channel? How are receipt, incident references and escalation confirmed?"
+      },
+      {
+        "id": "3",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "How should the district centre coordinate Armoede matters with the local municipality and community structures?",
+        "prompts": "Who is the district liaison? How do the Traditional Council, ACDT, Monte View and wardens participate through agreed channels? How can village stakeholder teams link to municipal and district coordination forums? Explain feedback to Armoede."
+      },
+      {
+        "id": "4",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "Which district decisions or approvals may be needed during an incident affecting Armoede?",
+        "prompts": "Clarify authority for district resource support, coordination arrangements and referrals to provincial or specialist services. Which decisions remain with local or other competent authorities? How are requests and delegations documented without assigning statutory authority to volunteers?"
+      },
+      {
+        "id": "5",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "How should district planning and capacity support incorporate Armoede’s risks and community SOPs?",
+        "prompts": "Describe the status of district and local disaster management plans, relief arrangements and support to local policy development. What technical, training or staffing support can be considered for Armoede? Separate available support from proposed commitments."
+      },
+      {
+        "id": "6",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "What district risk information or technical assessments could help prioritise Armoede’s hazards?",
+        "prompts": "What maps, incident records and assessments cover the community? Which evidence needs verification with local officials and residents? Consider storm, flood, fire, water, public-health and mining or environmental risks and potential effects beyond local boundaries."
+      },
+      {
+        "id": "7",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How can the district support preventive action and seasonal preparedness in Armoede?",
+        "prompts": "How are local maintenance or service risks referred to the responsible institution? Describe technical advice, readiness reviews and coordination with service providers. How are unresolved Armoede risks escalated and progress communicated back?"
+      },
+      {
+        "id": "8",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How should the district centre receive, verify and relay warnings relevant to Armoede?",
+        "prompts": "Identify authorised warning sources, duty monitoring and the local municipal contact. How are affected areas, impact, protective action and update times communicated? How does the district obtain feedback on local dissemination, correct misinformation and support communication failures?"
+      },
+      {
+        "id": "9",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "What district support is needed to verify evacuation and shelter arrangements for Armoede?",
+        "prompts": "Who supports hazard screening, route and venue suitability, capacity, accessibility and coordination of transport or neighbouring facilities? How are findings agreed with the local municipality and community structures? Explain joint exercises and updates."
+      },
+      {
+        "id": "10",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How should district services support inclusive preparedness for Armoede residents needing assistance?",
+        "prompts": "How does the district coordinate with local government, health, social services and transport providers? What referral arrangements support people who may miss warnings or struggle to move safely? Describe secure information-sharing without entering personal household details."
+      },
+      {
+        "id": "11",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should the district centre handle an incident notification concerning Armoede?",
+        "prompts": "What information is required from the local municipality or community, who logs and assesses it, and how is the appropriate lead service notified? Explain prompt acknowledgement, immediate life-safety escalation and requests for missing information without delaying urgent response."
+      },
+      {
+        "id": "12",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "What should trigger district mobilisation or escalation beyond the district for an Armoede incident?",
+        "prompts": "Describe indicators of exceeded local capacity, specialist needs or wider impacts. Who authorises support, requests provincial or mutual assistance and updates the local municipality? Identify after-hours procedures and constraints without promising unconfirmed response times."
+      },
+      {
+        "id": "13",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should the district coordinate multiple agencies supporting an incident in Armoede?",
+        "prompts": "How are the local lead, district coordination function and specialist responders linked? Who consolidates situation updates and resource requests? How is community information received and how do wardens and the Trust support the response safely?"
+      },
+      {
+        "id": "14",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How can the district support evacuation and shelter needs that exceed local capacity in Armoede?",
+        "prompts": "Who coordinates additional transport, receiving facilities, welfare, safeguarding and links to health or social services? Which competent authority issues protective instructions? How are people accounted for and information shared with local officials?"
+      },
+      {
+        "id": "15",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should the district arrange specialist resources and service-provider support for Armoede?",
+        "prompts": "Consider rescue, fire, medical services, electricity, emergency water, environmental health, roads and mine-related technical advice. What request and mobilisation process applies, what mutual support exists and how are communication or access failures addressed?"
+      },
+      {
+        "id": "16",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should the district support stand-down and the transition to recovery in Armoede?",
+        "prompts": "Which lead service confirms remaining hazards and safe-return advice? How are district resources accounted for and outstanding issues handed to local or sector recovery functions? How does consistent information reach the local municipality and residents?"
+      },
+      {
+        "id": "17",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should district personnel support and consolidate damage and needs assessments for Armoede?",
+        "prompts": "Which common information and verification arrangements are used? When are technical teams needed and who requests them? How are local and community reports consolidated, duplication avoided, urgent needs escalated and personal information protected?"
+      },
+      {
+        "id": "18",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should district relief coordination support affected Armoede residents?",
+        "prompts": "Describe how local requests reach responsible departments or relief partners, how eligibility and unmet needs are tracked and how overlapping assistance is avoided. What district records, allocation decisions and reconciliation are needed? Distinguish confirmed resources from requests."
+      },
+      {
+        "id": "19",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should the district help resolve unresolved relief or service concerns affecting Armoede?",
+        "prompts": "Which cases should first go to local government or a service provider, and which need district escalation? Who tracks referrals, follows up delayed responses and gives the community an outcome through accessible channels?"
+      },
+      {
+        "id": "20",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How can district recovery support reduce repeated losses in Armoede?",
+        "prompts": "What technical coordination, planning support or funding referrals can assist safer infrastructure repairs, service restoration and livelihoods? How do local priorities reach sector departments or provincial processes? Identify approval, ownership and maintenance responsibilities."
+      },
+      {
+        "id": "21",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should the district and local municipality review Armoede incidents and track learning?",
+        "prompts": "Who convenes joint reviews and includes community feedback? How are corrective actions, district support needs and outstanding risks followed up? What joint exercises or training would test the local and district interface?"
+      }
+    ],
+    "scenario_instruction": "For each Armoede scenario, describe the first notification, local lead, district support or escalation, safe community role and records needed. State what exists now and what still needs confirmation. These are discussion scenarios, not verified incident reports.",
+    "scenarios": [
+      {
+        "id": "1",
+        "question": "A severe storm damages homes and blocks or floods access to Road One or New Stands in Armoede",
+        "prompts": "District response: explain support to the local municipality, coordination and escalation. How are warnings relayed, access and damage assessed, rescue or evacuation referred, and temporary shelter arranged? What changes if mobile communications fail or local responders are already deployed elsewhere?"
+      },
+      {
+        "id": "2",
+        "question": "A veld or household fire threatens Armoede residents while damaged electrical infrastructure creates additional danger",
+        "prompts": "District response: explain support to the local municipality, coordination and escalation. Which fire service and electricity operator are notified? Who coordinates safe access, isolation, protective instructions and shelter? What can wardens safely support, and when is district assistance requested?"
+      },
+      {
+        "id": "3",
+        "question": "Armoede experiences a prolonged water interruption during extreme heat",
+        "prompts": "District response: explain support to the local municipality, coordination and escalation. Who verifies the cause and restoration plan with the responsible water provider? How are safe emergency supply, vulnerable residents, water quality, public messages and distribution records addressed? What district support is needed?"
+      },
+      {
+        "id": "4",
+        "question": "A suspected public-health incident or cluster of illness is reported in Armoede",
+        "prompts": "District response: explain support to the local municipality, coordination and escalation. How are health services and environmental health notified? Who verifies the concern, provides authorised advice and arranges necessary assistance while protecting privacy? Which municipal and district functions support the health lead?"
+      },
+      {
+        "id": "5",
+        "question": "A community-safety incident disrupts access to emergency or essential services in Armoede",
+        "prompts": "District response: explain support to the local municipality, coordination and escalation. How do municipal and district contacts coordinate with the appropriate safety authorities and community liaison structures? How are safe access, verified public messages and continuity of essential support maintained without involving volunteers in enforcement?"
+      },
+      {
+        "id": "6",
+        "question": "A suspected mining-related or environmental incident could affect Armoede’s water, air or access",
+        "prompts": "District response: explain support to the local municipality, coordination and escalation. Who receives the community report and refers it to the operator, responsible regulator, environmental health and disaster management contacts as appropriate? Who verifies impacts, obtains specialist advice and communicates protective action without asking wardens to enter hazardous areas?"
+      }
+    ],
+    "closing": [
+      "What are the three most important district support arrangements the Armoede SOPs must make clear?",
+      "Which arrangements can your institution confirm, and which require agreement from other authorities, service providers or Armoede community structures?",
+      "What priority support, training, equipment, assessment or planning action would improve district support for Armoede?"
+    ],
+    "action_columns": [
+      "Armoede issue or SOP action",
+      "Trigger or priority",
+      "Local municipality role",
+      "District centre role",
+      "Other institution or community support",
+      "Record and feedback required",
+      "Follow-up and confirmation needed"
+    ]
+  },
+  "local": {
+    "label": "Local Municipality",
+    "source": "Armoede municipal consultation questionnaire developed for local officials and district disaster management centres",
+    "purpose": "Gather local municipality officials’ input on risks, services and coordination affecting Armoede / Ga-Sekhaolelo, to inform the four community SOPs.",
+    "opening": "Answer from your institution’s actual role in Armoede. Describe current arrangements and local examples, then identify proposed improvements and matters needing confirmation. This consultation does not approve procedures or commit resources.",
+    "approach": "Use the main questions and follow-up prompts to record your institution’s responsibilities and its interface with the other sphere of government and community structures. Keep answers specific to Armoede. Leave questions outside your role unanswered or identify the responsible institution. Distinguish existing arrangements, proposals and matters requiring confirmation.",
+    "metadata_fields": [
+      "Municipality or disaster management centre",
+      "Department or function",
+      "Official role or designation",
+      "Service area covering Armoede"
+    ],
+    "required_metadata": [
+      "Municipality or disaster management centre"
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "Which local municipal functions and service providers are responsible for risks and services affecting Armoede?",
+        "prompts": "Identify the departments covering Armoede, their current duties and gaps needing clarification. Distinguish the municipality’s own functions from those of the district, water or electricity provider, health services and other authorities."
+      },
+      {
+        "id": "2",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "Who should Armoede contact at the local municipality for routine risks and urgent incidents?",
+        "prompts": "Describe the receiving function, duty arrangements outside office hours, alternative when unavailable, acknowledgement and incident reference. How does an unanswered request reach district disaster management or emergency services? Use official channels rather than private contact numbers."
+      },
+      {
+        "id": "3",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "How should the local municipality work with Armoede’s Traditional Council, ACDT, Monte View and wardens?",
+        "prompts": "Who maintains community liaison and convenes discussions? How do community reports enter municipal work planning? How should village stakeholder teams link to existing ward and municipal structures? Describe how the community receives feedback."
+      },
+      {
+        "id": "4",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "Which decisions affecting Armoede can local officials take, and which require district or specialist approval?",
+        "prompts": "Identify the decision-maker for municipal resources, protective instructions, shelter use and requests for specialist support. Which delegations are confirmed? Clarify community support roles without assigning statutory powers to the Trust or wardens."
+      },
+      {
+        "id": "5",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "How should Armoede’s needs be reflected in local disaster management and municipal service planning?",
+        "prompts": "What plans and relief policies are approved, being developed or awaiting approval? How are Armoede priorities linked to municipal planning, budgets and maintenance work? Discuss current staffing, training needs, action tracking and feedback."
+      },
+      {
+        "id": "6",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "What risk assessments or site inspections are needed in Armoede?",
+        "prompts": "Which hotspots and past incidents should guide inspections? Consider Road One, New Stands, storm damage, drainage, fire, electrical hazards, water interruptions and environmental concerns where relevant. Who participates, records findings and requests district technical support?"
+      },
+      {
+        "id": "7",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "What preventive maintenance and seasonal checks should the local municipality arrange for Armoede?",
+        "prompts": "Consider drainage, culverts, roads, waste, water and other assets under the responsible provider. Who owns each asset, receives work requests and checks completion? Identify what can be done locally and what needs another provider or district support."
+      },
+      {
+        "id": "8",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How should the local municipality relay verified warnings and protective advice to Armoede?",
+        "prompts": "How are warnings received from district centres or authorised sources, translated into locally relevant messages and shared through community contacts? Describe correction of rumours, alternative channels during outages and checks that residents received the message."
+      },
+      {
+        "id": "9",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How should local officials help verify routes, assembly places and shelters serving Armoede?",
+        "prompts": "Who checks safety, access, capacity, accessibility, water, sanitation and permission to use venues? Who arranges transport and alternative access? Explain the district or specialist input needed and how arrangements should be practised with the community."
+      },
+      {
+        "id": "10",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How should local services prepare assistance for Armoede residents who may need extra support?",
+        "prompts": "How are community structures linked to social, health, transport and other responsible services? Consider accessible warnings, mobility and continuity of care. Describe consent and secure referral arrangements without recording household names or health details here."
+      },
+      {
+        "id": "11",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "What should happen when Armoede reports an incident to the local municipality?",
+        "prompts": "What location, hazard, access and life-safety information is needed? Who logs, triages and refers the incident? How are emergency services notified without waiting for a completed form, and how does the community receive acknowledgement and updates?"
+      },
+      {
+        "id": "12",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "When and how should local officials request district assistance for an Armoede incident?",
+        "prompts": "Identify triggers such as overwhelmed responders, blocked access, multiple affected households or specialist needs. Who makes and receives the request, what information is required and what happens after hours? State existing arrangements and matters needing agreement."
+      },
+      {
+        "id": "13",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should local municipal responders coordinate with Armoede community structures at an incident?",
+        "prompts": "Who is the lead service for the hazard? Who receives local information, assigns safe support tasks and liaises with the district? How are conflicting instructions avoided and community records handed over to responders?"
+      },
+      {
+        "id": "14",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should the local municipality support authorised evacuation and temporary shelter for Armoede?",
+        "prompts": "Who confirms instructions, assesses access, requests transport and manages receiving venues? How are people needing assistance, missing-person referrals and shelter accountability handled? Which needs must be escalated to the district or another institution?"
+      },
+      {
+        "id": "15",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should local officials arrange specialist help and essential services for Armoede when resources are constrained?",
+        "prompts": "Consider fire, rescue, medical response, electricity isolation, water, environmental health and access. Identify the responsible provider, district support route and communication fallback. What tasks can volunteers safely support, and what requires trained responders?"
+      },
+      {
+        "id": "16",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should local officials communicate stand-down, safe return and recovery handover to Armoede?",
+        "prompts": "Which competent authority checks remaining hazards and authorises the decision? Who informs community structures and the district? What records, outstanding needs and resource accounts pass to recovery teams?"
+      },
+      {
+        "id": "17",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should the local municipality assess damage and urgent needs in Armoede?",
+        "prompts": "Who verifies community reports and arranges technical infrastructure or environmental assessments? How are urgent needs referred, duplicate records avoided and district assistance requested? Describe minimum necessary information and privacy controls."
+      },
+      {
+        "id": "18",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should local officials coordinate relief requests and distribution support for Armoede?",
+        "prompts": "Who receives requests, determines eligibility or refers them to the responsible department? How are shelter, water, food and other needs prioritised? Explain district referrals, ACDT support, receipt and distribution records and tracking of unmet needs without assuming funding is approved."
+      },
+      {
+        "id": "19",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How can Armoede residents follow up delayed municipal services or relief?",
+        "prompts": "Describe accessible service-request and complaint channels, case references, escalation and feedback. How are excluded households referred for review? Distinguish routine complaints from emergencies requiring immediate notification."
+      },
+      {
+        "id": "20",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "What local recovery and maintenance improvements would reduce repeat disaster losses in Armoede?",
+        "prompts": "Consider drainage, roads, water services, safer repairs, community facilities and affected livelihoods. Who owns the work, provides technical approval, requests funding and maintains the restored assets? Which priorities need district or other institutional support?"
+      },
+      {
+        "id": "21",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should local officials and Armoede stakeholders review incidents and confirm corrective actions?",
+        "prompts": "Who convenes reviews with wardens, the Trust, the Traditional Council and responders? How are actions tracked and reported to the district where needed? What exercises, equipment checks and training should test local readiness?"
+      }
+    ],
+    "scenario_instruction": "For each Armoede scenario, describe the first notification, local lead, district support or escalation, safe community role and records needed. State what exists now and what still needs confirmation. These are discussion scenarios, not verified incident reports.",
+    "scenarios": [
+      {
+        "id": "1",
+        "question": "A severe storm damages homes and blocks or floods access to Road One or New Stands in Armoede",
+        "prompts": "Local response: explain local notification, responsible services, community liaison and district support requests. How are warnings relayed, access and damage assessed, rescue or evacuation referred, and temporary shelter arranged? What changes if mobile communications fail or local responders are already deployed elsewhere?"
+      },
+      {
+        "id": "2",
+        "question": "A veld or household fire threatens Armoede residents while damaged electrical infrastructure creates additional danger",
+        "prompts": "Local response: explain local notification, responsible services, community liaison and district support requests. Which fire service and electricity operator are notified? Who coordinates safe access, isolation, protective instructions and shelter? What can wardens safely support, and when is district assistance requested?"
+      },
+      {
+        "id": "3",
+        "question": "Armoede experiences a prolonged water interruption during extreme heat",
+        "prompts": "Local response: explain local notification, responsible services, community liaison and district support requests. Who verifies the cause and restoration plan with the responsible water provider? How are safe emergency supply, vulnerable residents, water quality, public messages and distribution records addressed? What district support is needed?"
+      },
+      {
+        "id": "4",
+        "question": "A suspected public-health incident or cluster of illness is reported in Armoede",
+        "prompts": "Local response: explain local notification, responsible services, community liaison and district support requests. How are health services and environmental health notified? Who verifies the concern, provides authorised advice and arranges necessary assistance while protecting privacy? Which municipal and district functions support the health lead?"
+      },
+      {
+        "id": "5",
+        "question": "A community-safety incident disrupts access to emergency or essential services in Armoede",
+        "prompts": "Local response: explain local notification, responsible services, community liaison and district support requests. How do municipal and district contacts coordinate with the appropriate safety authorities and community liaison structures? How are safe access, verified public messages and continuity of essential support maintained without involving volunteers in enforcement?"
+      },
+      {
+        "id": "6",
+        "question": "A suspected mining-related or environmental incident could affect Armoede’s water, air or access",
+        "prompts": "Local response: explain local notification, responsible services, community liaison and district support requests. Who receives the community report and refers it to the operator, responsible regulator, environmental health and disaster management contacts as appropriate? Who verifies impacts, obtains specialist advice and communicates protective action without asking wardens to enter hazardous areas?"
+      }
+    ],
+    "closing": [
+      "What are the three most important local municipal arrangements the Armoede SOPs must make clear?",
+      "Which arrangements can your institution confirm, and which require agreement from other authorities, service providers or Armoede community structures?",
+      "What priority support, training, equipment, assessment or planning action would improve local services and response in Armoede?"
+    ],
+    "action_columns": [
+      "Armoede issue or SOP action",
+      "Trigger or priority",
+      "Local municipality role",
+      "District centre role",
+      "Other institution or community support",
+      "Record and feedback required",
+      "Follow-up and confirmation needed"
+    ]
   }
 }

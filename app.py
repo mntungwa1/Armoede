@@ -288,7 +288,7 @@ def dashboard():
         st.error('Could not connect to the response database. Check the configured connection.');return
     st.caption('Submitted responses only. Participant drafts and personal session state are not visible here.')
     if not records:st.info('No submitted responses yet.');return
-    questionnaire=st.selectbox('Questionnaire to review',['Stakeholder map survey','Traditional Council','Wardens and General Stakeholders'])
+    questionnaire=st.selectbox('Questionnaire to review',['Stakeholder map survey']+[g['label'] for g in QUESTIONNAIRES.values()])
     code=next((c for c,g in QUESTIONNAIRES.items() if g['label']==questionnaire),None)
     records=[r for r in records if r.get('record_type')=='focus_questionnaire' and r.get('questionnaire_type')==code] if code else [r for r in records if r.get('record_type')!='focus_questionnaire']
     if not records:st.info('No submitted responses for this questionnaire yet.');return
@@ -356,8 +356,9 @@ st.write('Your experience. Your places. Better disaster procedures.')
 page=st.radio('Choose area',['Survey','Facilitator dashboard'],horizontal=True,label_visibility='collapsed')
 if page=='Facilitator dashboard':dashboard()
 elif password_gate('survey'):
-    entries_tab,survey_tab,plan_tab,sops_tab=st.tabs(['Questionnaire entries','Stakeholder survey','DRM Plan','Draft SOPs'])
+    entries_tab,municipality_tab,survey_tab,plan_tab,sops_tab=st.tabs(['Questionnaire entries','Municipality — District and Local','Stakeholder survey','DRM Plan','Draft SOPs'])
     with entries_tab:render_entries(store,require_durable,email_sender,email_password)
+    with municipality_tab:render_entries(store,require_durable,email_sender,email_password,questionnaire_code='municipality')
     with plan_tab:render_document('plan')
     with sops_tab:render_document('sops')
     with survey_tab:

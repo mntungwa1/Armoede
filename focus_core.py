@@ -10,11 +10,14 @@ from email.message import EmailMessage
 QUESTIONNAIRES = json.loads((Path(__file__).parent/'data/entry_questionnaires.json').read_text())
 META = ['Date and venue', 'Facilitator', 'Participants and roles', 'Session code', 'Stakeholder group']
 
+def metadata_fields(code):
+    return META + QUESTIONNAIRES[code].get('metadata_fields', [])
+
 def new_entry(code):
     guide=QUESTIONNAIRES[code]
     return {'schema_version':1,'record_type':'focus_questionnaire','questionnaire_type':code,
             'response_id':str(uuid.uuid4()),'created_at':datetime.now(timezone.utc).isoformat(),
-            'metadata':{k:'' for k in META},'consent':False,
+            'metadata':{k:'' for k in metadata_fields(code)},'consent':False,
             'answers':{q['id']:'' for q in guide['questions']},
             'scenarios':{q['id']:'' for q in guide['scenarios']},
             'closing':{str(i):'' for i in range(1,4)},'actions':[]}
@@ -55,7 +58,8 @@ def entry_rows(records):
 
 def entry_csv(records):
     rows=entry_rows(records)
-    fields=['response_id','submitted_at','questionnaire',*META,'section','question','prompts','answer']
+    metadata=list(dict.fromkeys(META+[k for d in records for k in metadata_fields(d['questionnaire_type'])]))
+    fields=['response_id','submitted_at','questionnaire',*metadata,'section','question','prompts','answer']
     output=io.StringIO();writer=csv.DictWriter(output,fieldnames=fields);writer.writeheader()
     for row in rows:
         writer.writerow({k:("'"+v if isinstance(v,str) and v.lstrip().startswith(('=','+','-','@')) else v) for k,v in row.items()})

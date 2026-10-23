@@ -145,6 +145,14 @@ Google guidance: https://support.google.com/mail/answer/185833
 
 The first tab is **Questionnaire entries**, with radio choices for **Traditional Council** and **Wardens and General Stakeholders**. Questions and prompts come from the supplied ACDT discussion guides: each has 21 main questions, six hazard scenarios, three closing questions and an optional facilitator action table. General stakeholders use the Wardens guide from their own role and experience; the original wording is retained.
 
-The two choices keep separate drafts during a session. Download a questionnaire draft before closing or refreshing and restore it in the first tab to continue. The original map-based stakeholder survey remains on the second tab. Document previews and Word downloads follow it.
+The two choices keep separate drafts during a session. Download a questionnaire draft before closing or refreshing and restore it in the first tab to continue. A separate **Municipality — District and Local** tab follows it, then the original map-based stakeholder survey and document previews.
+
+### Municipal questionnaires
+
+The municipality tab has **District Municipality** and **Local Municipality** radio choices, matching the existing Traditional Council and Wardens layout. Each has its own 21 main questions, six Armoede hazard scenarios, three closing questions and action table. Local questions cover services, community liaison, prevention and referrals affecting Armoede; district questions cover the disaster management centre, technical support, interagency coordination and escalation. Both retain the four SOP sections and distinguish current practice, proposals and arrangements requiring confirmation.
+
+Each municipal choice keeps a separate draft and submission reference. Record the municipality or disaster management centre before submitting; department, official role and service coverage are optional. Download and restore municipal drafts within the municipality tab. Restoring a draft selects the matching District or Local questionnaire without replacing the other group's answers. Municipal drafts cannot be restored in the Traditional Council/Wardens tab, or vice versa.
+
+Municipal submissions use the existing survey access, storage and notification configuration. The protected facilitator dashboard offers separate District Municipality and Local Municipality filters. CSV and JSON exports retain the institution details, answers, scenarios, closing responses and action records. The app does not change the reference DRM Plan or draft SOP documents.
 
 Questionnaire submissions use the same storage, consent, password gate and Gmail notification settings as the map survey. The facilitator dashboard's **Questionnaire to review** selector separates map survey responses, Traditional Council entries and Wardens/general stakeholder entries; CSV and JSON exports include all questionnaire answers and action records. Hosted local storage may be temporary unless DATABASE_URL is configured. No participant answers or credentials are stored in the repository.

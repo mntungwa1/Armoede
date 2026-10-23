@@ -3,7 +3,7 @@ import copy
 import json
 from datetime import datetime, timezone
 import streamlit as st
-from focus_core import QUESTIONNAIRES,META,new_entry,validate_entry,has_input,entry_csv,entry_rows
+from focus_core import QUESTIONNAIRES,metadata_fields,new_entry,validate_entry,has_input,entry_csv,entry_rows
 from notifications import deliver_response
 
 
@@ -18,30 +18,39 @@ def _text(code,group,field,label,help_text=None):
     d[group][field]=st.session_state[key]
 
 
-def _restore(data):
+def _restore(data,allowed_codes=None,notice_key='focus_restore_notice'):
     try:
         if len(data)>2_000_000:raise ValueError('Draft is too large.')
         d=validate_entry(json.loads(data));code=d['questionnaire_type']
+        if allowed_codes is not None and code not in allowed_codes:
+            raise ValueError('Restore this draft in its matching questionnaire tab.')
         st.session_state['focus_drafts'][code]=d
-        st.session_state['focus_choice']=QUESTIONNAIRES[code]['label']
+        choice_key='municipality_choice' if code in ('district','local') else 'focus_choice'
+        st.session_state[choice_key]=QUESTIONNAIRES[code]['label']
         for k in list(st.session_state):
             if k.startswith(f'focus_{code}_'):del st.session_state[k]
         st.session_state.pop('focus_receipt_'+code,None)
-        st.session_state['focus_restore_notice']='Questionnaire draft restored. Review the entries below.'
+        st.session_state[notice_key]='Questionnaire draft restored. Review the entries below.'
     except (ValueError,TypeError,KeyError,UnicodeDecodeError):
-        st.session_state['focus_restore_notice']='Could not restore this file. Choose a valid questionnaire-entry draft JSON.'
+        st.session_state[notice_key]='Could not restore this file. Choose a valid questionnaire-entry draft JSON for this tab.'
 
 
-def render_entries(store,require_durable,email_sender,email_password):
-    st.subheader('Questionnaire entries')
-    st.write('Choose the group you are recording. Each choice keeps its own answers while you work.')
-    if 'focus_drafts' not in st.session_state:st.session_state['focus_drafts']={c:new_entry(c) for c in QUESTIONNAIRES}
+def render_entries(store,require_durable,email_sender,email_password,questionnaire_code=None):
+    municipal=questionnaire_code=='municipality'
+    scope='municipality' if municipal else 'focus'
+    allowed_codes=['district','local'] if municipal else ['traditional','wardens']
+    st.subheader('Municipality — District and Local' if municipal else 'Questionnaire entries')
+    st.write('Record local government and district centre arrangements that affect Armoede / Ga-Sekhaolelo.' if municipal else 'Choose the group you are recording. Each choice keeps its own answers while you work.')
+    drafts=st.session_state.setdefault('focus_drafts',{})
+    for c in QUESTIONNAIRES:
+        if c not in drafts:drafts[c]=new_entry(c)
     with st.expander('Continue from a saved questionnaire draft'):
-        upload=st.file_uploader('Choose questionnaire draft JSON',type=['json'],key='focus_upload')
-        st.button('Restore questionnaire draft',key='focus_restore',disabled=upload is None,on_click=_restore,args=(upload.getvalue() if upload else b'',))
-        if st.session_state.get('focus_restore_notice'):st.info(st.session_state['focus_restore_notice'])
-    label=st.radio('Questionnaire',['Traditional Council','Wardens and General Stakeholders'],horizontal=True,key='focus_choice')
-    code=next(c for c,g in QUESTIONNAIRES.items() if g['label']==label);guide=QUESTIONNAIRES[code]
+        upload=st.file_uploader('Choose questionnaire draft JSON',type=['json'],key=scope+'_upload')
+        st.button('Restore questionnaire draft',key=scope+'_restore',disabled=upload is None,on_click=_restore,args=(upload.getvalue() if upload else b'',allowed_codes,scope+'_restore_notice'))
+        if st.session_state.get(scope+'_restore_notice'):st.info(st.session_state[scope+'_restore_notice'])
+    label=st.radio('Municipal questionnaire' if municipal else 'Questionnaire',[QUESTIONNAIRES[c]['label'] for c in allowed_codes],horizontal=True,key='municipality_choice' if municipal else 'focus_choice')
+    code=next(c for c in allowed_codes if QUESTIONNAIRES[c]['label']==label)
+    guide=QUESTIONNAIRES[code]
     d=st.session_state['focus_drafts'][code]
     receipt=st.session_state.get('focus_receipt_'+code)
     if receipt:
@@ -62,12 +71,16 @@ def render_entries(store,require_durable,email_sender,email_password):
                 if k.startswith(f'focus_{code}_'):del st.session_state[k]
             st.rerun()
         return
-    st.caption('Ga-Sekhaolelo · 21 main questions · six hazard scenarios · closing and action records')
+    st.caption(f'Armoede / Ga-Sekhaolelo · {len(guide["questions"])} main questions · {len(guide["scenarios"])} hazard scenarios · closing and action records')
+    if municipal:st.info('Answer from your institution’s role in Armoede. Describe what happens now, what should improve and what needs confirmation. Questions outside your role may be left unanswered or referred to the responsible institution.')
     if code=='wardens':st.info('General stakeholders may answer from their own role and experience. If a question refers to Warden training you have not received, say so or leave it unanswered.')
     with st.expander('Purpose and facilitation guidance'):
         st.write(guide['purpose']);st.write(guide['opening']);st.write(guide['approach'])
     st.caption('Record group-level views. Do not enter private contact details, household names or sensitive personal information. Use your separate attendance register for participant identities.')
-    for field in META:_text(code,'metadata',field,field+' (optional)')
+    for field in metadata_fields(code):
+        required=field in guide.get('required_metadata',[])
+        label=field+(' (required for submission)' if required else ' (optional)')
+        _text(code,'metadata',field,label)
     for section in dict.fromkeys(q['section'] for q in guide['questions']):
         with st.expander(section,expanded=section==guide['questions'][0]['section']):
             for q in guide['questions']:
@@ -107,6 +120,8 @@ def render_entries(store,require_durable,email_sender,email_password):
     if not ready:st.info('Submission will be enabled when the organiser configures database storage or email collection. You can download your draft now.')
     if st.button('Submit questionnaire entries',type='primary',key='focus_submit_'+code,disabled=not ready):
         if not d['consent']:st.error('Confirm consent before submitting.')
+        elif any(not d['metadata'][field].strip() for field in guide.get('required_metadata',[])):
+            st.error('Enter the municipality or disaster management centre before submitting.')
         elif not has_input(d):st.error('Record at least one answer, scenario, closing response or action before submitting.')
         else:
             payload=validate_entry(copy.deepcopy(d));payload['submitted_at']=datetime.now(timezone.utc).isoformat()

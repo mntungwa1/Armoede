@@ -1,4 +1,6 @@
 import sys
+import hashlib
+import json
 from pathlib import Path
 from unittest.mock import patch
 from streamlit.testing.v1 import AppTest
@@ -7,8 +9,10 @@ from document_view import document_bytes
 ROOT=Path(__file__).resolve().parents[1]
 
 def test_original_downloads_and_rendered_previews():
+    manifest=json.loads((ROOT/'documents/manifest.json').read_text())
     for stem in ['Armoede_DRM_Plan','Armoede_Draft_SOPs']:
-        assert document_bytes(stem,'docx')==(ROOT/'documents'/f'{stem}.docx').read_bytes()
+        path=f'documents/{stem}.docx'
+        assert hashlib.sha256(document_bytes(stem,'docx')).hexdigest()==manifest[path]['sha256']
         assert document_bytes(stem,'pdf').startswith(b'%PDF-')
 
 def test_documents_are_protected_by_survey_password():
@@ -20,7 +24,7 @@ def test_documents_are_protected_by_survey_password():
         at.text_input[0].input('test-access')
         next(b for b in at.button if b.label=='Open survey').click().run()
         assert not at.exception
-        assert [t.label for t in at.tabs]==['Questionnaire entries','Stakeholder survey','DRM Plan','Draft SOPs']
+        assert [t.label for t in at.tabs]==['Questionnaire entries','Municipality — District and Local','Stakeholder survey','DRM Plan','Draft SOPs']
         assert len([b for b in at.get('download_button') if b.label=='Download Word document'])==2
 
 def test_previews_preserve_answer_and_can_be_closed():
