@@ -744,5 +744,392 @@
       "Record and feedback required",
       "Follow-up and confirmation needed"
     ]
+  },
+  "provincial": {
+    "label": "Provincial Government (DM)",
+    "source": "Armoede consultation questions developed for Provincial Government (DM)",
+    "purpose": "Gather provincial disaster management and sector officials’ inputs on support, coordination and capacity affecting Armoede / Ga-Sekhaolelo.",
+    "opening": "Describe your institution’s actual role in supporting Armoede and its interface with other spheres of government. Identify current arrangements, proposals, constraints and matters requiring confirmation. This consultation informs the community SOPs and does not approve procedures, delegate powers or commit resources.",
+    "approach": "Keep every response connected to Armoede or to the provincial and municipal arrangements serving it. Use the main questions and follow-up prompts. Identify the responsible institution for matters outside your role and explain the recognised referral route. Distinguish guidance and coordination from local operational delivery, and confirmed support from requests or proposals.",
+    "metadata_fields": [
+      "Province",
+      "Provincial centre or department",
+      "Unit or function",
+      "Official role or designation",
+      "Support area relevant to Armoede"
+    ],
+    "required_metadata": [
+      "Province",
+      "Provincial centre or department"
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "What provincial disaster management functions and sector support are relevant to Armoede?",
+        "prompts": "Describe the provincial centre’s role in supporting the district and local municipality responsible for Armoede. Which provincial departments or service providers should participate? Distinguish available support, current constraints and responsibilities needing confirmation."
+      },
+      {
+        "id": "2",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "How should an Armoede matter reach the provincial disaster management centre?",
+        "prompts": "What is the normal district-to-province referral route, duty function and after-hours alternative? What urgent exceptions or direct notifications are recognised? How are receipt, case ownership and updates confirmed without bypassing immediate notification to emergency services?"
+      },
+      {
+        "id": "3",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "How should the province coordinate district, local and sector inputs concerning Armoede?",
+        "prompts": "Who is the provincial liaison and which forum or working arrangement should be used? How do verified community inputs from the Traditional Council, ACDT, Monte View and wardens reach that process? Who ensures feedback returns to Armoede through the agreed municipal channels?"
+      },
+      {
+        "id": "4",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "Which provincial decisions or authorisations may be required for support to Armoede?",
+        "prompts": "Identify the responsible functions for provincial resources, specialist assistance, sector referrals and escalation to national level. Which decisions remain with municipalities or another competent authority? Explain current delegations and matters needing institutional agreement."
+      },
+      {
+        "id": "5",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "How can provincial planning and capacity development support Armoede’s community SOPs?",
+        "prompts": "How do relevant provincial plans, contingency arrangements and support to municipal plans take account of Armoede? What training, staffing, technical guidance or exercises could assist local and district teams? Separate confirmed programmes from proposed support."
+      },
+      {
+        "id": "6",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "What provincial risk information or technical assessment support could help prioritise Armoede’s risks?",
+        "prompts": "What hazard information, historical incident records or sector assessments can be shared with the district and local municipality? Which Armoede locations and concerns need field verification? How can community observations inform assessment without treating unverified reports as established facts?"
+      },
+      {
+        "id": "7",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How should unresolved prevention and service risks in Armoede be coordinated at provincial level?",
+        "prompts": "Consider drainage and access, water interruption, fire, infrastructure and environmental concerns where relevant. Who receives district referrals, identifies the responsible sector and tracks preventive work? How are local ownership, funding requests and feedback handled?"
+      },
+      {
+        "id": "8",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How should provincial monitoring and warning arrangements support timely action in Armoede?",
+        "prompts": "How are authorised warnings received, checked for local relevance and relayed to district and local contacts? Who follows up communication failures or warnings affecting several areas? How does the province receive confirmation of dissemination and coordinate updates or corrections?"
+      },
+      {
+        "id": "9",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "What provincial support is needed for evacuation readiness and shelters serving Armoede?",
+        "prompts": "Describe technical advice, sector coordination, transport or receiving-facility support requested through municipalities. Who verifies venues, access, accessibility, capacity and services? How should provincial participation in a joint exercise be requested and confirmed?"
+      },
+      {
+        "id": "10",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How can provincial departments support inclusive preparedness for Armoede residents?",
+        "prompts": "How should district and local authorities request health, social development, education or other relevant support? Consider accessible warnings, transport and continuity of essential care. Describe secure referrals and information-sharing without collecting household names or health details here."
+      },
+      {
+        "id": "11",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should the province assess an incident notification or support request concerning Armoede?",
+        "prompts": "What verified information, local capacity assessment, access constraints and outstanding needs are required from the district? Who logs, evaluates and assigns the request? How are urgent life-safety matters escalated while missing information is obtained?"
+      },
+      {
+        "id": "12",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "When should provincial coordination or escalation to national level be considered for an Armoede incident?",
+        "prompts": "Which indicators show municipal or district capacity is exceeded, specialist support is needed or impacts are wider? Who confirms the request, authorises provincial support and refers unresolved needs to the NDMC or responsible national department? Do not assume a classification, declaration or funding approval."
+      },
+      {
+        "id": "13",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should provincial personnel and departments coordinate support for an Armoede response?",
+        "prompts": "How are the municipal lead, district coordination and provincial sector functions linked? Who consolidates situation updates, resource requests and decisions? How are conflicting messages resolved and community information received through the recognised local liaison?"
+      },
+      {
+        "id": "14",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should provincial support assist Armoede evacuation and shelter needs that exceed municipal capacity?",
+        "prompts": "Which departments can consider transport, health, welfare, safeguarding and accommodation requests? Who coordinates allocation and records the decision? How are local accountability and the competent authority’s protective instructions maintained?"
+      },
+      {
+        "id": "15",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should provincial specialist resources be requested and tracked for Armoede?",
+        "prompts": "Consider emergency medical services, rescue or fire support, environmental health, water, roads and mining-related technical advice as relevant. What request, availability check, mobilisation, cost approval and handover processes apply? What alternatives are considered when access or communications fail?"
+      },
+      {
+        "id": "16",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should the province support stand-down and recovery handover for an Armoede incident?",
+        "prompts": "Which lead service confirms remaining hazards and safe-return advice? How are provincial resources accounted for and unresolved needs transferred to district, local or sector recovery functions? Who communicates consistent updates through the municipal and community channels?"
+      },
+      {
+        "id": "17",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should provincial teams support verification of Armoede damage and needs assessments?",
+        "prompts": "Who requests specialist assessment and consolidates local, district and sector evidence? What records, geographic coverage and verification are needed? How are duplicate assistance records avoided, personal information protected and urgent unmet needs escalated?"
+      },
+      {
+        "id": "18",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should provincial relief and funding referrals address verified Armoede needs?",
+        "prompts": "Which departments or partners receive district requests, apply the relevant criteria and communicate decisions? What evidence and expenditure or distribution records are needed? Describe how pending, approved, declined and unmet requests are tracked without presenting potential support as a commitment."
+      },
+      {
+        "id": "19",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should unresolved Armoede relief or service concerns be followed up at provincial level?",
+        "prompts": "Which issues should first use local or district complaint processes, and which warrant provincial sector escalation? Who owns the referral, checks progress and sends an outcome back through accessible channels? How are urgent protection or life-safety concerns handled?"
+      },
+      {
+        "id": "20",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How can provincial recovery support reduce repeated disaster losses in Armoede?",
+        "prompts": "How can local and district priorities be linked to sector restoration, safer rebuilding, service continuity and affected livelihoods? Identify technical approvals, funding referrals, project ownership and future maintenance. How will the province check that proposed recovery reduces the identified risk?"
+      },
+      {
+        "id": "21",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should provincial lessons from Armoede incidents and exercises be followed through?",
+        "prompts": "Who participates in reviews with municipalities and receives community feedback? How are corrective actions, capacity needs and unresolved risks assigned, tracked and reported? What should be shared with the NDMC or other provinces, and how does Armoede receive feedback?"
+      }
+    ],
+    "scenario_instruction": "For each Armoede scenario, describe the information needed, the local and district lead, the provincial referral and any support appropriate to your institution. Identify decisions, records and feedback routes. These are consultation scenarios, not verified events or commitments to intervene.",
+    "scenarios": [
+      {
+        "id": "1",
+        "question": "A severe storm damages Armoede homes and disrupts access to Road One or New Stands",
+        "prompts": "How should the province assess district requests for additional coordination, technical assessment, transport or shelter support? What verified information and sector involvement are needed, and when should unresolved needs go to national level?"
+      },
+      {
+        "id": "2",
+        "question": "Fire and damaged electrical infrastructure threaten Armoede residents",
+        "prompts": "How should provincial coordination link municipal fire response, the responsible electricity operator and any requested health or specialist assistance? Who confirms decisions, resources and updates through the district?"
+      },
+      {
+        "id": "3",
+        "question": "A prolonged water interruption and extreme heat affect Armoede",
+        "prompts": "How should the province coordinate the responsible water provider, municipalities, health and social support? What evidence, emergency supply request and public information are needed, and what gaps require further escalation?"
+      },
+      {
+        "id": "4",
+        "question": "A suspected public-health incident is reported in Armoede",
+        "prompts": "How should provincial health or environmental health leadership link to district and local disaster management? Who verifies the concern, issues advice and requests additional support while protecting personal information?"
+      },
+      {
+        "id": "5",
+        "question": "A community-safety incident disrupts emergency access or essential services in Armoede",
+        "prompts": "How should the province coordinate with the responsible safety authorities and municipalities to support safe access, welfare and continuity of services? What verified updates and unresolved support requests should be escalated?"
+      },
+      {
+        "id": "6",
+        "question": "A suspected mining-related or environmental incident may affect Armoede’s water, air or access",
+        "prompts": "How should the province coordinate district referrals, responsible regulators, relevant sector departments and the operator? Who verifies impacts, obtains technical advice and communicates authorised protective information?"
+      }
+    ],
+    "closing": [
+      "What are the three most important provincial support arrangements that the Armoede SOPs should make clear?",
+      "Which arrangements can your institution confirm, and which need agreement from provincial, district, local, national sector or community institutions?",
+      "What priority guidance, training, technical assessment, resource coordination or follow-up would improve support to Armoede?"
+    ],
+    "action_columns": [
+      "Armoede issue or SOP action",
+      "Trigger or support request",
+      "Requesting or lead institution",
+      "Provincial support role",
+      "Sector or other institution role",
+      "Evidence and decision required",
+      "Feedback and follow-up",
+      "Confirmation needed"
+    ],
+    "context_note": "Answer as provincial disaster management or a relevant provincial department. Focus on support to Armoede through the district and local municipality; identify sector leads and matters requiring national escalation."
+  },
+  "ndmc": {
+    "label": "National Disaster Management Centre",
+    "source": "Armoede consultation questions developed for National Disaster Management Centre",
+    "purpose": "Gather NDMC officials’ inputs on national coordination, guidance and support relevant to Armoede / Ga-Sekhaolelo through provincial and municipal structures.",
+    "opening": "Describe your institution’s actual role in supporting Armoede and its interface with other spheres of government. Identify current arrangements, proposals, constraints and matters requiring confirmation. This consultation informs the community SOPs and does not approve procedures, delegate powers or commit resources.",
+    "approach": "Keep every response connected to Armoede or to the provincial and municipal arrangements serving it. Use the main questions and follow-up prompts. Identify the responsible institution for matters outside your role and explain the recognised referral route. Distinguish guidance and coordination from local operational delivery, and confirmed support from requests or proposals.",
+    "metadata_fields": [
+      "NDMC unit or function",
+      "Official role or designation",
+      "Support area relevant to Armoede"
+    ],
+    "required_metadata": [
+      "NDMC unit or function"
+    ],
+    "questions": [
+      {
+        "id": "1",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "What NDMC functions and national support mechanisms are relevant to risks affecting Armoede?",
+        "prompts": "Describe the NDMC’s coordination, guidance, information and support roles in relation to the province, district and local municipality. Which matters sit with national sector departments or other institutions? Clarify responsibilities without assuming the NDMC manages routine community operations."
+      },
+      {
+        "id": "2",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "How should a verified Armoede matter be escalated to the NDMC?",
+        "prompts": "Describe the recognised provincial referral route, national duty function and after-hours arrangements. What notifications or exceptional direct referrals are appropriate? Who acknowledges the request and provides updates through the responsible authorities? Urgent local emergency notification should not depend on a national referral."
+      },
+      {
+        "id": "3",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "How should national, provincial and municipal coordination address an issue affecting Armoede?",
+        "prompts": "Which coordination forum, liaison roles or request processes apply? How should verified input from Armoede community structures reach that process through municipalities and the province? How are national decisions and guidance communicated back through the agreed channels?"
+      },
+      {
+        "id": "4",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "Which national decisions or processes could become relevant to a serious Armoede incident?",
+        "prompts": "What evidence and referrals would be needed for national coordination, specialist support or any consideration of classification, declaration or financial assistance? Identify who holds the relevant decision-making role and which actions require another institution. Do not presume that an Armoede incident automatically meets any threshold."
+      },
+      {
+        "id": "5",
+        "section": "SOP 1: Governance, Institutional Coordination and Interagency Liaison",
+        "question": "What national guidance or capacity support would help authorities develop workable SOPs for Armoede?",
+        "prompts": "Which existing guidance, standards, planning tools or training can the province and municipalities access? How should community procedures link to government plans and volunteer support arrangements? Identify available programmes, application routes and areas needing clarification."
+      },
+      {
+        "id": "6",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "What national risk information or assessment guidance could assist Armoede through provincial and municipal structures?",
+        "prompts": "What hazard datasets, assessment methods or incident information could support locally verified analysis? How are access and technical assistance requested? How should national information be interpreted with local evidence rather than replacing field verification?"
+      },
+      {
+        "id": "7",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How can national coordination help address persistent risks in Armoede that exceed provincial or municipal capacity?",
+        "prompts": "How are evidence-based referrals channelled to the responsible national sector or service institution? Discuss prevention, infrastructure or service risks within each institution’s remit. Who tracks referral outcomes and ensures feedback reaches the province, municipalities and community?"
+      },
+      {
+        "id": "8",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How should national monitoring and warning coordination support action in Armoede?",
+        "prompts": "How are information and authorised warnings shared with provinces and relevant sector institutions? What feedback is needed on warning dissemination, readiness and communication failures? Clarify who issues technical warnings and who handles local messages and protective instructions."
+      },
+      {
+        "id": "9",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "What national preparedness guidance or support could strengthen Armoede evacuation and shelter arrangements?",
+        "prompts": "What guidance, planning tools, training or coordination support can be requested through the province? Which institutions remain responsible for assessing local routes, venues, transport and shelter services? How should major resource gaps be escalated and exercises supported?"
+      },
+      {
+        "id": "10",
+        "section": "SOP 2: Risk Prevention, Mitigation, Preparedness and Early Warning",
+        "question": "How should national guidance and coordination support inclusive assistance in Armoede?",
+        "prompts": "How can provinces and municipalities access relevant health, social, education or other sector support? What information-sharing and protection guidance applies to referrals? Identify practical support for accessible warnings, mobility and continuity of essential services without collecting personal household data in this questionnaire."
+      },
+      {
+        "id": "11",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "What incident information about Armoede would the NDMC require through the provincial channel?",
+        "prompts": "Describe minimum verified facts, affected area, reported impacts, local and provincial actions, capacity constraints and outstanding support needs. What reporting format, update process and verification are expected? How are uncertain figures clearly marked and corrected?"
+      },
+      {
+        "id": "12",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "When should an Armoede incident prompt consideration of national coordination or additional support?",
+        "prompts": "Which severity, capacity or wider-impact indicators are considered, and by whom? What supporting evidence is needed from provincial and municipal authorities? Distinguish an escalation request from any separate decision on classification, declaration, resource allocation or funding."
+      },
+      {
+        "id": "13",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should the NDMC coordinate national sector inputs to a response affecting Armoede?",
+        "prompts": "How are requests from the province consolidated and referred to relevant national institutions? Who tracks decisions, resource offers and unresolved needs? How are national coordination and the established provincial, municipal and on-scene response arrangements kept aligned?"
+      },
+      {
+        "id": "14",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should national support requests relating to Armoede evacuation or temporary shelter be handled?",
+        "prompts": "If provincial and municipal capacity is exceeded, what request and coordination process applies for relevant sector or partner support? How are need, availability, responsibilities and approvals confirmed? Clarify the local and provincial roles in protective instructions, transport and shelter management."
+      },
+      {
+        "id": "15",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should specialist national assistance for Armoede be requested and coordinated when required?",
+        "prompts": "What provincial request, evidence of need and availability checks are necessary for the relevant specialist institution? Who approves its support and tracks mobilisation, costs, reporting and handover? Describe the NDMC coordination role separately from the service provider’s operational responsibilities."
+      },
+      {
+        "id": "16",
+        "section": "SOP 3: Emergency Activation, Incident Coordination and Priority Hazard Response",
+        "question": "How should national coordination support transition from response to recovery for Armoede?",
+        "prompts": "What provincial close-out information, unresolved requests and sector recovery responsibilities should be recorded? How are national support tasks closed or handed over? Which authorities communicate local safe-return decisions and continuing needs through the provincial and municipal channels?"
+      },
+      {
+        "id": "17",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "What verified Armoede damage and needs evidence is needed for national consideration or reporting?",
+        "prompts": "How should municipal and provincial assessments be consolidated, checked and updated? Which sector assessments and supporting records may be required? How are duplicate counts, unverified estimates and personal information handled while urgent needs remain visible?"
+      },
+      {
+        "id": "18",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should requests for national relief or financial assistance concerning Armoede be referred and tracked?",
+        "prompts": "What current process, institutional responsibilities, eligibility information and supporting evidence should provincial and municipal officials follow? Who communicates decisions and reporting obligations? Distinguish assistance requested, approved, transferred and delivered; avoid assuming that submission guarantees funding."
+      },
+      {
+        "id": "19",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should unresolved national-level referrals affecting Armoede be tracked and communicated?",
+        "prompts": "Which matters belong with the responsible sector department, province or municipality and which fall within NDMC coordination? How are case ownership, follow-up and feedback documented so Armoede receives an outcome through agreed channels?"
+      },
+      {
+        "id": "20",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How can national recovery guidance and sector coordination support safer recovery in Armoede?",
+        "prompts": "How should verified local priorities reach provincial and national recovery planning or funding processes? What evidence demonstrates reduced future risk, restored services and livelihoods, ownership and maintenance? Clarify the roles of implementing authorities and the NDMC without assuming direct project delivery."
+      },
+      {
+        "id": "21",
+        "section": "SOP 4: Relief, Recovery and Build Back Better",
+        "question": "How should lessons from Armoede inform national learning and follow-up support?",
+        "prompts": "What after-action information should be shared through the province? How can municipalities and community structures receive useful feedback, guidance or training? Who tracks corrective actions involving national institutions and confirms closure to the responsible provincial or municipal contact?"
+      }
+    ],
+    "scenario_instruction": "For each Armoede scenario, describe the information needed, the local and district lead, the provincial referral and any support appropriate to your institution. Identify decisions, records and feedback routes. These are consultation scenarios, not verified events or commitments to intervene.",
+    "scenarios": [
+      {
+        "id": "1",
+        "question": "A severe storm damages Armoede homes and disrupts access to Road One or New Stands",
+        "prompts": "If the province reports exceeded capacity, what verified impact and support information would the NDMC need? How should national sector referrals and feedback be coordinated while municipal and provincial response arrangements continue?"
+      },
+      {
+        "id": "2",
+        "question": "Fire and damaged electrical infrastructure threaten Armoede residents",
+        "prompts": "What information would justify a national coordination referral, and which specialist institution or sector lead should receive it? How should national support requests remain linked to the provincial and local response leads?"
+      },
+      {
+        "id": "3",
+        "question": "A prolonged water interruption and extreme heat affect Armoede",
+        "prompts": "How should the province refer verified water-service capacity constraints to the relevant national institutions? What coordination, status information and follow-up could the NDMC support without taking over the water provider’s operations?"
+      },
+      {
+        "id": "4",
+        "question": "A suspected public-health incident is reported in Armoede",
+        "prompts": "Which health lead and provincial coordination channel should provide verified information? When is national coordination support relevant, and how are sector responsibilities, public information and privacy maintained?"
+      },
+      {
+        "id": "5",
+        "question": "A community-safety incident disrupts emergency access or essential services in Armoede",
+        "prompts": "What provincial request and verified information are needed for national cross-sector coordination? How are responsible safety and service institutions engaged while avoiding any assumption of enforcement duties for volunteers?"
+      },
+      {
+        "id": "6",
+        "question": "A suspected mining-related or environmental incident may affect Armoede’s water, air or access",
+        "prompts": "How should the province escalate verified cross-sector or specialist needs? What is the NDMC coordination role alongside the responsible regulator, sector department and operator, and how do decisions and updates return to Armoede?"
+      }
+    ],
+    "closing": [
+      "What are the three most important national coordination and support arrangements that the Armoede SOPs should make clear?",
+      "Which arrangements can your institution confirm, and which need agreement from provincial, district, local, national sector or community institutions?",
+      "What priority guidance, training, technical assessment, resource coordination or follow-up would improve support to Armoede?"
+    ],
+    "action_columns": [
+      "Armoede issue or SOP action",
+      "Trigger or support request",
+      "Requesting or lead institution",
+      "NDMC coordination or support role",
+      "Sector or other institution role",
+      "Evidence and decision required",
+      "Feedback and follow-up",
+      "Confirmation needed"
+    ],
+    "context_note": "Answer from the NDMC’s role in national coordination, guidance and support. Connect each response to Armoede through the responsible province, district and local municipality, and identify matters for other competent institutions."
   }
 }

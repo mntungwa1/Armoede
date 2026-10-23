@@ -45,7 +45,7 @@ def test_municipal_submission_exports_and_dashboard(tmp_path,monkeypatch,code,la
         at.text_area(key=f'focus_{code}_answers_21').input('Joint Armoede exercise and review').run()
         at.checkbox(key=f'focus_{code}_consent').check().run()
         at.button(key=f'focus_submit_{code}').click().run()
-        assert any('Enter the municipality' in e.value for e in at.error)
+        assert any('Municipality or disaster management centre' in e.value for e in at.error)
         at.text_area(key=f'focus_{code}_metadata_Municipality or disaster management centre').input('Test municipal institution').run()
         at.text_area(key=f'focus_{code}_metadata_Department or function').input('Disaster management').run()
         at.text_area(key=f'focus_{code}_scenarios_6').input('Refer Armoede pollution concern').run()

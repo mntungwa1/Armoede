@@ -145,7 +145,7 @@ Google guidance: https://support.google.com/mail/answer/185833
 
 The first two tabs are **Traditional Council** and **Wardens and General Stakeholders**, each opening its own questionnaire directly. Questions and prompts come from the supplied ACDT discussion guides: each has 21 main questions, six hazard scenarios, three closing questions and an optional facilitator action table. General stakeholders use the Wardens guide from their own role and experience; the original wording is retained.
 
-The two tabs keep separate drafts, restore controls and submissions during a session. Download a questionnaire draft before closing or refreshing and restore it in its matching tab to continue. A draft for one group cannot replace the other group’s answers. The **Municipality — District and Local** tab follows them, then the original map-based stakeholder survey and document previews.
+The two tabs keep separate drafts, restore controls and submissions during a session. Download a questionnaire draft before closing or refreshing and restore it in its matching tab to continue. A draft for one group cannot replace the other group’s answers. The **Municipality — District and Local**, **Provincial Government (DM)** and **National Disaster Management Centre** tabs follow them, then the original map-based stakeholder survey and document previews.
 
 ### Municipal questionnaires
 
@@ -156,3 +156,11 @@ Each municipal choice keeps a separate draft and submission reference. Record th
 Municipal submissions use the existing survey access, storage and notification configuration. The protected facilitator dashboard offers separate District Municipality and Local Municipality filters. CSV and JSON exports retain the institution details, answers, scenarios, closing responses and action records. The app does not change the reference DRM Plan or draft SOP documents.
 
 Questionnaire submissions use the same storage, consent, password gate and Gmail notification settings as the map survey. The facilitator dashboard's **Questionnaire to review** selector separates map survey responses, Traditional Council entries and Wardens/general stakeholder entries; CSV and JSON exports include all questionnaire answers and action records. Hosted local storage may be temporary unless DATABASE_URL is configured. No participant answers or credentials are stored in the repository.
+
+### Provincial and national questionnaires
+
+The **Provincial Government (DM)** and **National Disaster Management Centre** tabs have separate questionnaires, drafts, restore controls, submissions and dashboard filters. Each has 21 questions grouped under the four SOPs, six Armoede hazard scenarios, three closing questions and an action table.
+
+Provincial questions address support to the district and local municipality, provincial sector coordination, preparedness, technical assessment, response escalation, relief and recovery affecting Armoede. NDMC questions address national guidance, information, intergovernmental coordination, specialist support referrals and learning through provincial and municipal structures. They ask officials to confirm responsibilities and available arrangements rather than assume direct national management of community operations or guaranteed resources.
+
+Record the province and provincial centre or department for a provincial submission, or the NDMC unit or function for a national submission. Other institution details are optional. Restore each downloaded draft in its own tab. Existing access, consent, storage, notifications and exports apply; no new secrets or database migrations are required. No operational reference documents are amended.

@@ -356,10 +356,12 @@ st.write('Your experience. Your places. Better disaster procedures.')
 page=st.radio('Choose area',['Survey','Facilitator dashboard'],horizontal=True,label_visibility='collapsed')
 if page=='Facilitator dashboard':dashboard()
 elif password_gate('survey'):
-    traditional_tab,wardens_tab,municipality_tab,survey_tab,plan_tab,sops_tab=st.tabs(['Traditional Council','Wardens and General Stakeholders','Municipality — District and Local','Stakeholder survey','DRM Plan','Draft SOPs'])
+    traditional_tab,wardens_tab,municipality_tab,provincial_tab,ndmc_tab,survey_tab,plan_tab,sops_tab=st.tabs(['Traditional Council','Wardens and General Stakeholders','Municipality — District and Local','Provincial Government (DM)','National Disaster Management Centre','Stakeholder survey','DRM Plan','Draft SOPs'])
     with traditional_tab:render_entries(store,require_durable,email_sender,email_password,questionnaire_code='traditional')
     with wardens_tab:render_entries(store,require_durable,email_sender,email_password,questionnaire_code='wardens')
     with municipality_tab:render_entries(store,require_durable,email_sender,email_password,questionnaire_code='municipality')
+    with provincial_tab:render_entries(store,require_durable,email_sender,email_password,questionnaire_code='provincial')
+    with ndmc_tab:render_entries(store,require_durable,email_sender,email_password,questionnaire_code='ndmc')
     with plan_tab:render_document('plan')
     with sops_tab:render_document('sops')
     with survey_tab:

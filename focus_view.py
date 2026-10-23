@@ -74,6 +74,7 @@ def render_entries(store,require_durable,email_sender,email_password,questionnai
             st.rerun()
         return
     st.caption(f'Armoede / Ga-Sekhaolelo · {len(guide["questions"])} main questions · {len(guide["scenarios"])} hazard scenarios · closing and action records')
+    if guide.get('context_note'):st.info(guide['context_note'])
     if municipal:st.info('Answer from your institution’s role in Armoede. Describe what happens now, what should improve and what needs confirmation. Questions outside your role may be left unanswered or referred to the responsible institution.')
     if code=='wardens':st.info('General stakeholders may answer from their own role and experience. If a question refers to Warden training you have not received, say so or leave it unanswered.')
     with st.expander('Purpose and facilitation guidance'):
@@ -123,7 +124,8 @@ def render_entries(store,require_durable,email_sender,email_password,questionnai
     if st.button('Submit questionnaire entries',type='primary',key='focus_submit_'+code,disabled=not ready):
         if not d['consent']:st.error('Confirm consent before submitting.')
         elif any(not d['metadata'][field].strip() for field in guide.get('required_metadata',[])):
-            st.error('Enter the municipality or disaster management centre before submitting.')
+            missing=[field for field in guide['required_metadata'] if not d['metadata'][field].strip()]
+            st.error('Complete the required institution details before submitting: '+', '.join(missing)+'.')
         elif not has_input(d):st.error('Record at least one answer, scenario, closing response or action before submitting.')
         else:
             payload=validate_entry(copy.deepcopy(d));payload['submitted_at']=datetime.now(timezone.utc).isoformat()
