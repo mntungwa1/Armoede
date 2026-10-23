@@ -25,8 +25,8 @@ def _restore(data,allowed_codes=None,notice_key='focus_restore_notice'):
         if allowed_codes is not None and code not in allowed_codes:
             raise ValueError('Restore this draft in its matching questionnaire tab.')
         st.session_state['focus_drafts'][code]=d
-        choice_key='municipality_choice' if code in ('district','local') else 'focus_choice'
-        st.session_state[choice_key]=QUESTIONNAIRES[code]['label']
+        if code in ('district','local'):
+            st.session_state['municipality_choice']=QUESTIONNAIRES[code]['label']
         for k in list(st.session_state):
             if k.startswith(f'focus_{code}_'):del st.session_state[k]
         st.session_state.pop('focus_receipt_'+code,None)
@@ -37,10 +37,10 @@ def _restore(data,allowed_codes=None,notice_key='focus_restore_notice'):
 
 def render_entries(store,require_durable,email_sender,email_password,questionnaire_code=None):
     municipal=questionnaire_code=='municipality'
-    scope='municipality' if municipal else 'focus'
-    allowed_codes=['district','local'] if municipal else ['traditional','wardens']
-    st.subheader('Municipality — District and Local' if municipal else 'Questionnaire entries')
-    st.write('Record local government and district centre arrangements that affect Armoede / Ga-Sekhaolelo.' if municipal else 'Choose the group you are recording. Each choice keeps its own answers while you work.')
+    scope='municipality' if municipal else (questionnaire_code or 'traditional')
+    allowed_codes=['district','local'] if municipal else [scope]
+    st.subheader('Municipality — District and Local' if municipal else QUESTIONNAIRES[scope]['label'])
+    st.write('Record local government and district centre arrangements that affect Armoede / Ga-Sekhaolelo.' if municipal else 'Record this group’s input for the Armoede community SOPs. This tab keeps its own answers and saved drafts.')
     drafts=st.session_state.setdefault('focus_drafts',{})
     for c in QUESTIONNAIRES:
         if c not in drafts:drafts[c]=new_entry(c)
@@ -48,8 +48,10 @@ def render_entries(store,require_durable,email_sender,email_password,questionnai
         upload=st.file_uploader('Choose questionnaire draft JSON',type=['json'],key=scope+'_upload')
         st.button('Restore questionnaire draft',key=scope+'_restore',disabled=upload is None,on_click=_restore,args=(upload.getvalue() if upload else b'',allowed_codes,scope+'_restore_notice'))
         if st.session_state.get(scope+'_restore_notice'):st.info(st.session_state[scope+'_restore_notice'])
-    label=st.radio('Municipal questionnaire' if municipal else 'Questionnaire',[QUESTIONNAIRES[c]['label'] for c in allowed_codes],horizontal=True,key='municipality_choice' if municipal else 'focus_choice')
-    code=next(c for c in allowed_codes if QUESTIONNAIRES[c]['label']==label)
+    if municipal:
+        label=st.radio('Municipal questionnaire',[QUESTIONNAIRES[c]['label'] for c in allowed_codes],horizontal=True,key='municipality_choice')
+        code=next(c for c in allowed_codes if QUESTIONNAIRES[c]['label']==label)
+    else:code=scope
     guide=QUESTIONNAIRES[code]
     d=st.session_state['focus_drafts'][code]
     receipt=st.session_state.get('focus_receipt_'+code)

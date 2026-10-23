@@ -31,15 +31,14 @@ def test_switch_restore_submit_and_dashboard(tmp_path,monkeypatch):
     with patch('streamlit_folium.st_folium',return_value={}):
         at=AppTest.from_file(str(ROOT/'app.py'),default_timeout=60).run()
         assert not at.exception
-        assert at.tabs[0].label=='Questionnaire entries'
+        assert [t.label for t in at.tabs][:2]==['Traditional Council','Wardens and General Stakeholders']
+        assert not any(r.key=='focus_choice' for r in at.radio)
         for q in QUESTIONNAIRES['traditional']['questions']:
             assert any(q['prompts']==m.value for m in at.markdown)
         at.text_area(key='focus_traditional_answers_1').input('Council answer').run()
-        at.radio(key='focus_choice').set_value('Wardens and General Stakeholders').run()
         for q in QUESTIONNAIRES['wardens']['questions']:
             assert any(q['prompts']==m.value for m in at.markdown)
         at.text_area(key='focus_wardens_answers_1').input('Warden answer').run()
-        at.radio(key='focus_choice').set_value('Traditional Council').run()
         assert at.text_area(key='focus_traditional_answers_1').value=='Council answer'
         at.checkbox(key='focus_traditional_consent').check().run()
         at.button(key='focus_submit_traditional').click().run();assert not at.exception
@@ -49,9 +48,9 @@ def test_switch_restore_submit_and_dashboard(tmp_path,monkeypatch):
         from focus_view import _restore
         # Invoke restore inside the app's ScriptRunner context through a small harness.
         harness=tmp_path/'restore.py'
-        harness.write_text("import sys\nsys.path.insert(0,"+repr(str(ROOT))+")\nimport streamlit as st\nfrom focus_core import new_entry\nfrom focus_view import _restore,render_entries\nfrom storage import Store\nst.session_state['focus_drafts']={c:new_entry(c) for c in ['traditional','wardens']}\nd=new_entry('wardens');d['answers']['1']='Restored warden';_restore(__import__('json').dumps(d))\nrender_entries(Store(sqlite_path="+repr(str(tmp_path/'restore.db'))+"),False,'','')\n")
+        harness.write_text("import sys\nsys.path.insert(0,"+repr(str(ROOT))+")\nimport streamlit as st\nfrom focus_core import new_entry\nfrom focus_view import _restore,render_entries\nfrom storage import Store\nst.session_state['focus_drafts']={c:new_entry(c) for c in ['traditional','wardens']}\nd=new_entry('wardens');d['answers']['1']='Restored warden';_restore(__import__('json').dumps(d))\nrender_entries(Store(sqlite_path="+repr(str(tmp_path/'restore.db'))+"),False,'','',questionnaire_code='wardens')\n")
         restored=AppTest.from_file(str(harness),default_timeout=60).run();assert not restored.exception
-        assert restored.radio(key='focus_choice').value=='Wardens and General Stakeholders'
+        assert not restored.radio
         assert restored.text_area(key='focus_wardens_answers_1').value=='Restored warden'
         at.radio[0].set_value('Facilitator dashboard').run()
         at.text_input[0].input('testadmin')
