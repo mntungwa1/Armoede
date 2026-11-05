@@ -349,8 +349,14 @@ def dashboard():
             st.text(r['closing'] or 'No additional concern')
 
 
-st.image(str(Path(__file__).parent/'assets/Armoede_Logo.png'),width=125)
-st.caption('ARMOEDE COMMUNITY DEVELOPMENT TRUST · COMMUNITY ENGAGEMENT')
+armoede_brand, gapila_brand = st.columns(2)
+with armoede_brand:
+    st.image(str(Path(__file__).parent/'assets/Armoede_Logo.png'), width=150)
+    st.markdown('**Armoede Community Development Trust**')
+with gapila_brand:
+    st.image(str(Path(__file__).parent/'assets/Ga_Pila_Logo.png'), width=150)
+    st.markdown('**Ga-Pila Community Development Trust**')
+st.caption('ARMOEDE AND GA-PILA · COMMUNITY ENGAGEMENT')
 st.title('Armoede and Ga-Pila Community SOP Survey')
 st.write('Your experience. Your places. Better disaster procedures.')
 page=st.radio('Choose area',['Survey','Facilitator dashboard'],horizontal=True,label_visibility='collapsed')
@@ -414,4 +420,4 @@ elif password_gate('survey'):
                 elif stage<=12:question_page(stage)
                 else:review()
                 st.divider();draft_download()
-st.divider();st.caption('Developed by Dingaan Mahlangu · NCUMA Risk Management Consultancy. Based on the Armoede focus group guide and supplied Ga-Sekhaolelo boundary. This consultation supports SOP refinement and does not approve operational locations or replace emergency services.')
+st.divider();st.caption('Developed by Dingaan Mahlangu · NCUMA Risk Management Consultancy. Supporting Armoede and Ga-Pila community engagement, including Bellevue Farm. The Armoede map uses the supplied Ga-Sekhaolelo boundary. This consultation supports SOP refinement and does not approve operational locations or replace emergency services.')
