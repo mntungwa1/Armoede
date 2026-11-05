@@ -25,6 +25,10 @@ def document_bytes(stem, extension):
     return verified_bytes(path, MANIFEST[path]['sha256'])
 
 def render_document(code):
+    if code == 'gapila_plan':
+        st.subheader('Ga-Pila DRM Plan')
+        st.info('The Ga-Pila DRM Plan is awaiting publication. Please contact the organiser for the document.')
+        return
     title, subtitle, stem, pages = DOCUMENTS[code]
     st.markdown('''<style>
     .st-key-document_plan,.st-key-document_sops {border:2px solid #2474a8;border-radius:12px;padding:1rem;}

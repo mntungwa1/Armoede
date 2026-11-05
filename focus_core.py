@@ -8,6 +8,27 @@ from pathlib import Path
 from email.message import EmailMessage
 
 QUESTIONNAIRES = json.loads((Path(__file__).parent/'data/entry_questionnaires.json').read_text())
+def community(code):
+    return 'Ga-Pila' if code.startswith('gapila_') else 'Armoede'
+
+for original, guide in list(QUESTIONNAIRES.items()):
+    text=json.dumps(guide,ensure_ascii=False).replace('Armoede / Ga-Sekhaolelo','Ga-Pila (Sterkwater)').replace('Ga-Sekhaolelo','Ga-Pila (Sterkwater)').replace('Armoede','Ga-Pila')
+    adapted=json.loads(text)
+    adapted['label']='Ga-Pila · '+adapted['label']
+    if original in ('traditional','wardens'):
+        additions={
+          1: [('Who is authorised to activate and coordinate disaster arrangements at Bellevue Farm, and how should they report to the Ga-Pila structures?', 'Confirm farm management, trustees, Traditional Council and volunteer responsibilities.'),('How should Bellevue Farm incidents and decisions be recorded and escalated?', 'Identify reporting channels, alternates and records required.')],
+          2: [('Which hazards and vulnerable assets at Bellevue Farm need priority prevention and early-warning measures?', 'Consider water, drought, veld fire, livestock, workers and production assets.'),('How should Bellevue Farm receive, verify and act on warnings and maintain preparedness?', 'Confirm warning sources, inspections, training, resources and responsibilities.')],
+          3: [('What should trigger emergency activation at Bellevue Farm, and who should take the first safe actions?', 'Consider fire, injury, flooding, water-system failure and biosecurity incidents.'),('How should responders reach Bellevue Farm and coordinate evacuation, assistance and communication?', 'Confirm access routes, assembly points, specialist support and village–farm liaison.')],
+          4: [('How should recovery and restoration of Bellevue Farm operations be prioritised after a disaster?', 'Consider water supply, access, livestock, infrastructure and production continuity.'),('How should Bellevue Farm damage, recovery needs and resilience improvements be assessed and tracked?', 'Identify records, responsible persons, funding referrals and safer rebuilding measures.')],
+          5: [('How should Bellevue Farm readiness and SOP implementation be monitored and tested?', 'Identify drills, indicators, records, responsibilities and review frequency.'),('How should Bellevue Farm lessons and corrective actions inform the Ga-Pila SOP review?', 'Confirm feedback, approval, tracking and communication arrangements.')]
+        }
+        sections=list(dict.fromkeys(q['section'] for q in adapted['questions']))
+        for number,section in enumerate(sections,1):
+            for idx,(question,prompts) in enumerate(additions.get(number,[]),1):
+                adapted['questions'].append({'id':f'BF{number}.{idx}','section':section,'question':question,'prompts':prompts})
+    QUESTIONNAIRES['gapila_'+original]=adapted
+
 META = ['Date and venue', 'Facilitator', 'Participants and roles', 'Session code', 'Stakeholder group']
 
 def metadata_fields(code):
@@ -68,12 +89,12 @@ def entry_csv(records):
 def build_entry_message(d,sender,recipient):
     guide=QUESTIONNAIRES[d['questionnaire_type']];msg=EmailMessage()
     msg['From']=sender;msg['To']=recipient
-    msg['Subject']=f"Armoede {guide['label']} response {d['response_id'][:8]}"
+    msg['Subject']=f"{community(d['questionnaire_type'])} {guide['label']} response {d['response_id'][:8]}"
     msg['Message-ID']=f"<armoede-{d['response_id']}@gmail.com>"
     lines=[guide['label'],f"Response reference: {d['response_id']}",f"Submitted UTC: {d.get('submitted_at','')}"]
     lines += [f'{k}: {v}' for k,v in d['metadata'].items()]
     for row in entry_rows([d]):lines += ['',row['section'],row['question'],row['prompts'],row['answer'] or 'No answer recorded']
     msg.set_content('\n'.join(lines))
-    msg.add_attachment(entry_csv([d]),maintype='text',subtype='csv',filename='Armoede_questionnaire_answers.csv')
-    msg.add_attachment(json.dumps(d,ensure_ascii=False,indent=2).encode(),maintype='application',subtype='json',filename='Armoede_questionnaire_response.json')
+    msg.add_attachment(entry_csv([d]),maintype='text',subtype='csv',filename=community(d['questionnaire_type'])+'_questionnaire_answers.csv')
+    msg.add_attachment(json.dumps(d,ensure_ascii=False,indent=2).encode(),maintype='application',subtype='json',filename=community(d['questionnaire_type'])+'_questionnaire_response.json')
     return msg

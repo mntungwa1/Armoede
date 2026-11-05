@@ -11,7 +11,8 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def test_source_questionnaires_and_complete_email(tmp_path):
     for code,guide in QUESTIONNAIRES.items():
-        assert [q['id'] for q in guide['questions']]==[str(i) for i in range(1,22)]
+        assert [q['id'] for q in guide['questions']][:21]==[str(i) for i in range(1,22)]
+        if code in ('gapila_traditional','gapila_wardens'):assert len(guide['questions'])==29
         assert len(guide['scenarios'])==6 and len(guide['closing'])==3
         d=new_entry(code);d['answers']['21']='Final readiness answer';d['scenarios']['6']='Mining incident answer'
         d['closing']['3']='Equipment and training';d['actions']=[{guide['action_columns'][0]:'Review action'}]
@@ -31,7 +32,7 @@ def test_switch_restore_submit_and_dashboard(tmp_path,monkeypatch):
     with patch('streamlit_folium.st_folium',return_value={}):
         at=AppTest.from_file(str(ROOT/'app.py'),default_timeout=60).run()
         assert not at.exception
-        assert [t.label for t in at.tabs][:2]==['Traditional Council','Wardens and General Stakeholders']
+        assert {'Armoede','Ga-Pila','Traditional Council','Wardens and General Stakeholders'} <= {t.label for t in at.tabs}
         assert not any(r.key=='focus_choice' for r in at.radio)
         for q in QUESTIONNAIRES['traditional']['questions']:
             assert any(q['prompts']==m.value for m in at.markdown)

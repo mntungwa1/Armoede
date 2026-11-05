@@ -3,7 +3,7 @@ import copy
 import json
 from datetime import datetime, timezone
 import streamlit as st
-from focus_core import QUESTIONNAIRES,metadata_fields,new_entry,validate_entry,has_input,entry_csv,entry_rows
+from focus_core import QUESTIONNAIRES,metadata_fields,new_entry,validate_entry,has_input,entry_csv,entry_rows,community
 from notifications import deliver_response
 
 
@@ -25,8 +25,8 @@ def _restore(data,allowed_codes=None,notice_key='focus_restore_notice'):
         if allowed_codes is not None and code not in allowed_codes:
             raise ValueError('Restore this draft in its matching questionnaire tab.')
         st.session_state['focus_drafts'][code]=d
-        if code in ('district','local'):
-            st.session_state['municipality_choice']=QUESTIONNAIRES[code]['label']
+        if code in ('district','local','gapila_district','gapila_local'):
+            st.session_state[('gapila_' if code.startswith('gapila_') else '')+'municipality_choice']=QUESTIONNAIRES[code]['label']
         for k in list(st.session_state):
             if k.startswith(f'focus_{code}_'):del st.session_state[k]
         st.session_state.pop('focus_receipt_'+code,None)
@@ -36,11 +36,13 @@ def _restore(data,allowed_codes=None,notice_key='focus_restore_notice'):
 
 
 def render_entries(store,require_durable,email_sender,email_password,questionnaire_code=None):
-    municipal=questionnaire_code=='municipality'
-    scope='municipality' if municipal else (questionnaire_code or 'traditional')
-    allowed_codes=['district','local'] if municipal else [scope]
+    project='Ga-Pila' if (questionnaire_code or '').startswith('gapila_') else 'Armoede'
+    prefix='gapila_' if project=='Ga-Pila' else ''
+    municipal=questionnaire_code in ('municipality','gapila_municipality')
+    scope=questionnaire_code or 'traditional'
+    allowed_codes=[prefix+'district',prefix+'local'] if municipal else [scope]
     st.subheader('Municipality — District and Local' if municipal else QUESTIONNAIRES[scope]['label'])
-    st.write('Record local government and district centre arrangements that affect Armoede / Ga-Sekhaolelo.' if municipal else 'Record this group’s input for the Armoede community SOPs. This tab keeps its own answers and saved drafts.')
+    st.write(f'Record local government and district centre arrangements that affect {project}.' if municipal else f'Record this group’s input for the {project} community SOPs. This tab keeps its own answers and saved drafts.')
     drafts=st.session_state.setdefault('focus_drafts',{})
     for c in QUESTIONNAIRES:
         if c not in drafts:drafts[c]=new_entry(c)
@@ -49,7 +51,7 @@ def render_entries(store,require_durable,email_sender,email_password,questionnai
         st.button('Restore questionnaire draft',key=scope+'_restore',disabled=upload is None,on_click=_restore,args=(upload.getvalue() if upload else b'',allowed_codes,scope+'_restore_notice'))
         if st.session_state.get(scope+'_restore_notice'):st.info(st.session_state[scope+'_restore_notice'])
     if municipal:
-        label=st.radio('Municipal questionnaire',[QUESTIONNAIRES[c]['label'] for c in allowed_codes],horizontal=True,key='municipality_choice')
+        label=st.radio('Municipal questionnaire',[QUESTIONNAIRES[c]['label'] for c in allowed_codes],horizontal=True,key=prefix+'municipality_choice')
         code=next(c for c in allowed_codes if QUESTIONNAIRES[c]['label']==label)
     else:code=scope
     guide=QUESTIONNAIRES[code]
@@ -66,17 +68,17 @@ def render_entries(store,require_durable,email_sender,email_password,questionnai
         if status in ['failed','pending'] and email_password:
             if st.button('Retry questionnaire email',key='focus_retry_'+code):
                 receipt['email_status']=deliver_response(store,receipt['response_id'],email_sender,email_password);st.rerun()
-        st.download_button('Download submitted questionnaire',json.dumps(receipt['payload'],ensure_ascii=False,indent=2),file_name=f'Armoede_{code}_submitted.json',mime='application/json',key='focus_submitted_'+code,on_click='ignore')
+        st.download_button('Download submitted questionnaire',json.dumps(receipt['payload'],ensure_ascii=False,indent=2),file_name=f'{project}_{code}_submitted.json',mime='application/json',key='focus_submitted_'+code,on_click='ignore')
         if st.button('Start another questionnaire',key='focus_new_'+code):
             st.session_state['focus_drafts'][code]=new_entry(code);st.session_state.pop('focus_receipt_'+code,None)
             for k in list(st.session_state):
                 if k.startswith(f'focus_{code}_'):del st.session_state[k]
             st.rerun()
         return
-    st.caption(f'Armoede / Ga-Sekhaolelo · {len(guide["questions"])} main questions · {len(guide["scenarios"])} hazard scenarios · closing and action records')
+    st.caption(f'{project} · {len(guide["questions"])} main questions · {len(guide["scenarios"])} hazard scenarios · closing and action records')
     if guide.get('context_note'):st.info(guide['context_note'])
-    if municipal:st.info('Answer from your institution’s role in Armoede. Describe what happens now, what should improve and what needs confirmation. Questions outside your role may be left unanswered or referred to the responsible institution.')
-    if code=='wardens':st.info('General stakeholders may answer from their own role and experience. If a question refers to Warden training you have not received, say so or leave it unanswered.')
+    if municipal:st.info(f'Answer from your institution’s role in {project}. Describe what happens now, what should improve and what needs confirmation. Questions outside your role may be left unanswered or referred to the responsible institution.')
+    if code in ('wardens','gapila_wardens'):st.info('General stakeholders may answer from their own role and experience. If a question refers to Warden training you have not received, say so or leave it unanswered.')
     with st.expander('Purpose and facilitation guidance'):
         st.write(guide['purpose']);st.write(guide['opening']);st.write(guide['approach'])
     st.caption('Record group-level views. Do not enter private contact details, household names or sensitive personal information. Use your separate attendance register for participant identities.')
@@ -116,9 +118,9 @@ def render_entries(store,require_durable,email_sender,email_password,questionnai
         d['actions']=[{k:('' if pd.isna(v) else str(v)[:3000]) for k,v in row.items()} for row in edited.to_dict('records') if any(not pd.isna(v) and str(v).strip() for v in row.values())][:50]
     consent_key=f'focus_{code}_consent'
     if consent_key not in st.session_state:st.session_state[consent_key]=d['consent']
-    d['consent']=st.checkbox('I agree that these entries may be recorded, emailed to dingaanm@gmail.com and reviewed by the Armoede engagement team for SOP development.',key=consent_key)
-    st.download_button('Download questionnaire draft',json.dumps(d,ensure_ascii=False,indent=2),file_name=f'Armoede_{code}_draft.json',mime='application/json',key='focus_draft_'+code,on_click='ignore')
-    st.download_button('Download questionnaire answers CSV',entry_csv([d]),file_name=f'Armoede_{code}_answers.csv',mime='text/csv',key='focus_csv_'+code,on_click='ignore')
+    d['consent']=st.checkbox(f'I agree that these entries may be recorded, emailed to dingaanm@gmail.com and reviewed by the {project} engagement team for SOP development.',key=consent_key)
+    st.download_button('Download questionnaire draft',json.dumps(d,ensure_ascii=False,indent=2),file_name=f'{project}_{code}_draft.json',mime='application/json',key='focus_draft_'+code,on_click='ignore')
+    st.download_button('Download questionnaire answers CSV',entry_csv([d]),file_name=f'{project}_{code}_answers.csv',mime='text/csv',key='focus_csv_'+code,on_click='ignore')
     ready=store.durable or not require_durable or bool(email_sender and email_password)
     if not ready:st.info('Submission will be enabled when the organiser configures database storage or email collection. You can download your draft now.')
     if st.button('Submit questionnaire entries',type='primary',key='focus_submit_'+code,disabled=not ready):
