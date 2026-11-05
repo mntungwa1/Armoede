@@ -22,5 +22,17 @@
   "assets/Armoede_Logo.png": {
     "sha256": "e7145ee26d1fe3be67fe29a11de35c6387d4e1420a9de7863cb0fa67396763fe",
     "bytes": 449576
+  },
+  "documents/Ga_Pila_DRM_Plan.docx": {
+    "bytes": 23987581,
+    "sha256": "b4347b6e667af210b2d2523394eaccf5735a491c63f636258031e91427da9b39"
+  },
+  "documents/Ga_Pila_DRM_Plan.pdf": {
+    "bytes": 7706807,
+    "sha256": "f431b52eb2308335934447976cdcc2a6a44be52537f5cc733e30f61493071513"
+  },
+  "documents/Ga_Pila_DRM_Plan.txt": {
+    "bytes": 273669,
+    "sha256": "dd2c3c0e3a2dff15d6b90171d1cd6abf14442599531ecfd395d3c5a332b5c169"
   }
 }
