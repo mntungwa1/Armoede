@@ -27,7 +27,22 @@ def document_bytes(stem, extension):
 def render_document(code):
     if code == 'gapila_plan':
         st.subheader('Ga-Pila DRM Plan')
-        st.info('The Ga-Pila DRM Plan is awaiting publication. Please contact the organiser for the document.')
+        st.caption('Disaster Risk Reduction and Resilience Implementation Plan · 2025–2030')
+        if 'documents/Ga_Pila_DRM_Plan.docx' not in MANIFEST:
+            st.info('The Ga-Pila DRM Plan is temporarily unavailable.')
+            return
+        st.download_button('Download Ga-Pila DRM Plan — Word',document_bytes('Ga_Pila_DRM_Plan','docx'),file_name='Ga_Pila_DRM_Plan.docx',mime=WORD_MIME,key='gapila_plan_download',on_click='ignore')
+        st.download_button('Download Ga-Pila DRM Plan — PDF', document_bytes('Ga_Pila_DRM_Plan','pdf'), file_name='Ga_Pila_DRM_Plan.pdf', mime='application/pdf', key='gapila_pdf_download', on_click='ignore')
+        st.caption('Full plan · 138 pages · Original supplied Word document · 22.9 MB')
+        if st.button('Preview Ga-Pila DRM Plan',key='gapila_plan_preview'):
+            st.session_state['show_gapila_plan']=True
+        if st.session_state.get('show_gapila_plan'):
+            with st.expander('Preview Ga-Pila DRM Plan — full pages',expanded=True):
+                st.pdf(document_bytes('Ga_Pila_DRM_Plan','pdf'),height=720,key='gapila_plan_pdf',alt='Ga-Pila DRM Plan')
+                st.button('Close Ga-Pila preview',key='gapila_plan_close',on_click=lambda:st.session_state.update(show_gapila_plan=False))
+        with st.expander('Read Ga-Pila DRM Plan — text preview'):
+            st.caption('Text extracted from the supplied plan. Download Word to view the complete layout, maps, figures and tables.')
+            st.text((ROOT/'documents/Ga_Pila_DRM_Plan.txt').read_text())
         return
     title, subtitle, stem, pages = DOCUMENTS[code]
     st.markdown('''<style>

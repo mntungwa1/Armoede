@@ -355,6 +355,8 @@ st.title('Armoede and Ga-Pila Community SOP Survey')
 st.write('Your experience. Your places. Better disaster procedures.')
 page=st.radio('Choose area',['Survey','Facilitator dashboard'],horizontal=True,label_visibility='collapsed')
 if page=='Facilitator dashboard':dashboard()
+elif st.query_params.get('document') == 'gapila':
+    render_document('gapila_plan')
 elif password_gate('survey'):
     armoede_area,gapila_area=st.tabs(['Armoede','Ga-Pila'])
     with gapila_area:
